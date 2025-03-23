@@ -21,45 +21,33 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpparma_outerproduct
-arma::mat rcpparma_outerproduct(const arma::colvec& x);
-RcppExport SEXP _cubeStats_rcpparma_outerproduct(SEXP xSEXP) {
+// cubemean
+arma::vec cubemean(const arma::Cube<double>& x);
+RcppExport SEXP _cubeStats_cubemean(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_outerproduct(x));
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(cubemean(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpparma_innerproduct
-double rcpparma_innerproduct(const arma::colvec& x);
-RcppExport SEXP _cubeStats_rcpparma_innerproduct(SEXP xSEXP) {
+// intna
+arma::Cube<int> intna(const arma::Cube<int>& x);
+RcppExport SEXP _cubeStats_intna(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_innerproduct(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpparma_bothproducts
-Rcpp::List rcpparma_bothproducts(const arma::colvec& x);
-RcppExport SEXP _cubeStats_rcpparma_bothproducts(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_bothproducts(x));
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(intna(x));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_rcpparma_hello_world", (DL_FUNC) &_cubeStats_rcpparma_hello_world, 0},
-    {"_cubeStats_rcpparma_outerproduct", (DL_FUNC) &_cubeStats_rcpparma_outerproduct, 1},
-    {"_cubeStats_rcpparma_innerproduct", (DL_FUNC) &_cubeStats_rcpparma_innerproduct, 1},
-    {"_cubeStats_rcpparma_bothproducts", (DL_FUNC) &_cubeStats_rcpparma_bothproducts, 1},
+    {"_cubeStats_cubemean", (DL_FUNC) &_cubeStats_cubemean, 1},
+    {"_cubeStats_intna", (DL_FUNC) &_cubeStats_intna, 1},
     {NULL, NULL, 0}
 };
 

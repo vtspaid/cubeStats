@@ -2,51 +2,105 @@
 
 // we only include RcppArmadillo.h which pulls Rcpp.h in for us
 #include "RcppArmadillo.h"
-
-// via the depends attribute we tell Rcpp to create hooks for
-// RcppArmadillo so that the build process will know what to do
-//
 // [[Rcpp::depends(RcppArmadillo)]]
 
-// simple example of creating two matrices and
-// returning the result of an operatioon on them
-//
-// via the exports attribute we tell Rcpp to make this function
-// available from R
-//
+//' Check function.
+//'
+//' @param x cube this is a test
+//' @return  new vector
+//' @export
 // [[Rcpp::export]]
-arma::mat rcpparma_hello_world() {
-    arma::mat m1 = arma::eye<arma::mat>(3, 3);
-    arma::mat m2 = arma::eye<arma::mat>(3, 3);
-	                     
-    return m1 + 3 * (m1 + m2);
+arma::vec cubemean(const arma::Cube<double>& x) {
+  return arma::mean(x);
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cubemean_int(const arma::Cube<int>& x) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    arma::uvec sub = arma::find(x.slice(i) != -2147483648);
+    if (sub.is_empty()) {
+      ans[i] = NA_REAL;
+      continue;
+    } 
+    ans[i] = arma::mean(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cubemean_int2(const arma::Cube<int>& x) {
+  int ns = x.n_slices;
+  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    ans[i] = arma::mean(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cubemean_num(const arma::Cube<double>& x) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    arma::uvec sub = arma::find_finite(x.slice(i));
+    if (sub.is_empty()) {
+      ans[i] = NA_REAL;
+      continue;
+    } 
+    ans[i] = arma::mean(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cubemean_user(const arma::Cube<double>& x, Rcpp::Function fun) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    arma::uvec sub = arma::find_finite(x.slice(i));
+    if (sub.is_empty()) {
+      ans[i] = NA_REAL;
+      continue;
+    } 
+    arma::vec test = arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub));
+    ans[i] = Rcpp::as<double>(fun(test));
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cubemean_user2(const arma::Cube<int>& x, Rcpp::Function fun) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    arma::uvec sub = arma::find_finite(x.slice(i));
+    if (sub.is_empty()) {
+      ans[i] = NA_REAL;
+      continue;
+    } 
+    arma::vec test = arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub));
+    ans[i] = Rcpp::as<double>(fun(test));
+  }
+  return ans;
 }
 
 
-// another simple example: outer product of a vector, 
-// returning a matrix
-//
 // [[Rcpp::export]]
-arma::mat rcpparma_outerproduct(const arma::colvec & x) {
-    arma::mat m = x * x.t();
-    return m;
+arma::Cube<int> intna(const arma::Cube<int>& x) {
+  arma::Cube<int> y = x;
+  return y;
 }
 
-// and the inner product returns a scalar
-//
 // [[Rcpp::export]]
-double rcpparma_innerproduct(const arma::colvec & x) {
-    double v = arma::as_scalar(x.t() * x);
-    return v;
+double intna2(const arma::Cube<int>& x) {
+  return arma::mean(x(1, 1, 1));
 }
 
 
-// and we can use Rcpp::List to return both at the same time
-//
-// [[Rcpp::export]]
-Rcpp::List rcpparma_bothproducts(const arma::colvec & x) {
-    arma::mat op = x * x.t();
-    double    ip = arma::as_scalar(x.t() * x);
-    return Rcpp::List::create(Rcpp::Named("outer")=op,
-                              Rcpp::Named("inner")=ip);
-}
+
+
+
+

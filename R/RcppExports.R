@@ -5,15 +5,16 @@ rcpparma_hello_world <- function() {
     .Call(`_cubeStats_rcpparma_hello_world`)
 }
 
-rcpparma_outerproduct <- function(x) {
-    .Call(`_cubeStats_rcpparma_outerproduct`, x)
+#' Check function.
+#'
+#' @param x cube this is a test
+#' @return  new vector
+#' @export
+cubemean <- function(x) {
+    .Call(`_cubeStats_cubemean`, x)
 }
 
-rcpparma_innerproduct <- function(x) {
-    .Call(`_cubeStats_rcpparma_innerproduct`, x)
-}
-
-rcpparma_bothproducts <- function(x) {
-    .Call(`_cubeStats_rcpparma_bothproducts`, x)
+intna <- function(x) {
+    .Call(`_cubeStats_intna`, x)
 }
 
