@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^R/test_matrices\.R$
 ^LICENSE\.md$
+^test_functions\.R$
