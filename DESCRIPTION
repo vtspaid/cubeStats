@@ -11,7 +11,6 @@ Date: 2025-03-22
 Author: person("Vincent", "Spaid", email = "vtspaid@gmail.com", 
   role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9880-7686"))
 Maintainer: Who to complain to <vtspaid@gmail.com>
-Description: More about what it does (maybe more than one line)
 License: MIT + file LICENSE
 Imports: Rcpp (>= 1.0.12)
 LinkingTo: Rcpp, RcppArmadillo
