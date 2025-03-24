@@ -4,22 +4,13 @@
 #include "RcppArmadillo.h"
 // [[Rcpp::depends(RcppArmadillo)]]
 
-//' Check function.
-//'
-//' @param x cube this is a test
-//' @return  new vector
-//' @export
-// [[Rcpp::export]]
-arma::vec cubemean(const arma::Cube<double>& x) {
-  return arma::mean(x);
-}
 
 // [[Rcpp::export]]
-Rcpp::NumericVector cubemean_int(const arma::Cube<int>& x) {
+Rcpp::NumericVector cpp_cubemean_int(const arma::Cube<int>& x, double mis_val) {
   int ns = x.n_slices;
   Rcpp::NumericVector ans(ns);
   for (int i = 0; i < ns; i++) {
-    arma::uvec sub = arma::find(x.slice(i) != -2147483648);
+    arma::uvec sub = arma::find(x.slice(i) != mis_val);
     if (sub.is_empty()) {
       ans[i] = NA_REAL;
       continue;
@@ -30,27 +21,22 @@ Rcpp::NumericVector cubemean_int(const arma::Cube<int>& x) {
 }
 
 // [[Rcpp::export]]
-Rcpp::NumericVector cubemean_int2(const arma::Cube<int>& x) {
+Rcpp::NumericVector cpp_cubemean_num(const arma::Cube<double>& x, bool na_rm) {
   int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
   arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
-  Rcpp::NumericVector ans(ns);
   for (int i = 0; i < ns; i++) {
-    ans[i] = arma::mean(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
-  }
-  return ans;
-}
-
-// [[Rcpp::export]]
-Rcpp::NumericVector cubemean_num(const arma::Cube<double>& x) {
-  int ns = x.n_slices;
-  Rcpp::NumericVector ans(ns);
-  for (int i = 0; i < ns; i++) {
+    if (na_rm == true) {
     arma::uvec sub = arma::find_finite(x.slice(i));
     if (sub.is_empty()) {
       ans[i] = NA_REAL;
       continue;
     } 
     ans[i] = arma::mean(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
+    } else {
+      ans[i] = arma::mean(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
+    }
+    
   }
   return ans;
 }

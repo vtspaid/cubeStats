@@ -11,24 +11,51 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// rcpparma_hello_world
-arma::mat rcpparma_hello_world();
-RcppExport SEXP _cubeStats_rcpparma_hello_world() {
+// cpp_cubemean_int
+Rcpp::NumericVector cpp_cubemean_int(const arma::Cube<int>& x, double mis_val);
+RcppExport SEXP _cubeStats_cpp_cubemean_int(SEXP xSEXP, SEXP mis_valSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpparma_hello_world());
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_cubemean_int(x, mis_val));
     return rcpp_result_gen;
 END_RCPP
 }
-// cubemean
-arma::vec cubemean(const arma::Cube<double>& x);
-RcppExport SEXP _cubeStats_cubemean(SEXP xSEXP) {
+// cpp_cubemean_num
+Rcpp::NumericVector cpp_cubemean_num(const arma::Cube<double>& x, bool na_rm);
+RcppExport SEXP _cubeStats_cpp_cubemean_num(SEXP xSEXP, SEXP na_rmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(cubemean(x));
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_cubemean_num(x, na_rm));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cubemean_user
+Rcpp::NumericVector cubemean_user(const arma::Cube<double>& x, Rcpp::Function fun);
+RcppExport SEXP _cubeStats_cubemean_user(SEXP xSEXP, SEXP funSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Function >::type fun(funSEXP);
+    rcpp_result_gen = Rcpp::wrap(cubemean_user(x, fun));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cubemean_user2
+Rcpp::NumericVector cubemean_user2(const arma::Cube<int>& x, Rcpp::Function fun);
+RcppExport SEXP _cubeStats_cubemean_user2(SEXP xSEXP, SEXP funSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Function >::type fun(funSEXP);
+    rcpp_result_gen = Rcpp::wrap(cubemean_user2(x, fun));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -43,11 +70,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// intna2
+double intna2(const arma::Cube<int>& x);
+RcppExport SEXP _cubeStats_intna2(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(intna2(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_cubeStats_rcpparma_hello_world", (DL_FUNC) &_cubeStats_rcpparma_hello_world, 0},
-    {"_cubeStats_cubemean", (DL_FUNC) &_cubeStats_cubemean, 1},
+    {"_cubeStats_cpp_cubemean_int", (DL_FUNC) &_cubeStats_cpp_cubemean_int, 2},
+    {"_cubeStats_cpp_cubemean_num", (DL_FUNC) &_cubeStats_cpp_cubemean_num, 2},
+    {"_cubeStats_cubemean_user", (DL_FUNC) &_cubeStats_cubemean_user, 2},
+    {"_cubeStats_cubemean_user2", (DL_FUNC) &_cubeStats_cubemean_user2, 2},
     {"_cubeStats_intna", (DL_FUNC) &_cubeStats_intna, 1},
+    {"_cubeStats_intna2", (DL_FUNC) &_cubeStats_intna2, 1},
     {NULL, NULL, 0}
 };
 
