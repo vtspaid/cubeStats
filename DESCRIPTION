@@ -1,10 +1,16 @@
 Package: cubeStats
 Type: Package
-Title: What the package does (short line)
+Title: Efficiently calculate a suite of basic statistics on 3d matrices
+Description: Utilize c++ and the Armadillo library to effeciently calculate
+    basic statics for 3d matrices. Built to work especially well with integer
+    matrices containing a specified missin_value integer. Example use case is
+    calculating basic statistics for data loaded from a NetCDF file with
+    ncvar_get() function from the ncdf4 package.
 Version: 1.0
 Date: 2025-03-22
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Author: person("Vincent", "Spaid", email = "vtspaid@gmail.com", 
+  role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9880-7686"))
+Maintainer: Who to complain to <vtspaid@gmail.com>
 Description: More about what it does (maybe more than one line)
 License: MIT + file LICENSE
 Imports: Rcpp (>= 1.0.12)
