@@ -4,9 +4,10 @@
 #include "RcppArmadillo.h"
 // [[Rcpp::depends(RcppArmadillo)]]
 
-
+////////////////////////////////////////////////////////////////////////////////
+// Functions for finding the Mean
 // [[Rcpp::export]]
-Rcpp::NumericVector cpp_cubemean_int(const arma::Cube<int>& x, double mis_val) {
+Rcpp::NumericVector cpp_slicemean_int(const arma::Cube<int>& x, double mis_val) {
   int ns = x.n_slices;
   Rcpp::NumericVector ans(ns);
   for (int i = 0; i < ns; i++) {
@@ -21,7 +22,7 @@ Rcpp::NumericVector cpp_cubemean_int(const arma::Cube<int>& x, double mis_val) {
 }
 
 // [[Rcpp::export]]
-Rcpp::NumericVector cpp_cubemean_num(const arma::Cube<double>& x, bool na_rm) {
+Rcpp::NumericVector cpp_slicemean_num(const arma::Cube<double>& x, bool na_rm) {
   int ns = x.n_slices;
   Rcpp::NumericVector ans(ns);
   arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
@@ -40,53 +41,84 @@ Rcpp::NumericVector cpp_cubemean_num(const arma::Cube<double>& x, bool na_rm) {
   }
   return ans;
 }
+/////////////////////////////////////////////////////////////////////////////////
 
+
+////////////////////////////////////////////////////////////////////////////////
+// Functions for finding the Max
 // [[Rcpp::export]]
-Rcpp::NumericVector cubemean_user(const arma::Cube<double>& x, Rcpp::Function fun) {
+Rcpp::NumericVector cpp_slicemax_int(const arma::Cube<int>& x, double mis_val) {
   int ns = x.n_slices;
   Rcpp::NumericVector ans(ns);
   for (int i = 0; i < ns; i++) {
-    arma::uvec sub = arma::find_finite(x.slice(i));
+    arma::uvec sub = arma::find(x.slice(i) != mis_val);
     if (sub.is_empty()) {
       ans[i] = NA_REAL;
       continue;
     } 
-    arma::vec test = arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub));
-    ans[i] = Rcpp::as<double>(fun(test));
+    ans[i] = arma::max(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
   }
   return ans;
 }
 
 // [[Rcpp::export]]
-Rcpp::NumericVector cubemean_user2(const arma::Cube<int>& x, Rcpp::Function fun) {
+Rcpp::NumericVector cpp_slicemax_num(const arma::Cube<double>& x, bool na_rm) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
+  for (int i = 0; i < ns; i++) {
+    if (na_rm == true) {
+      arma::uvec sub = arma::find_finite(x.slice(i));
+      if (sub.is_empty()) {
+        ans[i] = NA_REAL;
+        continue;
+      } 
+      ans[i] = arma::max(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
+    } else {
+      ans[i] = arma::max(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
+    }
+    
+  }
+  return ans;
+}
+/////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Functions for finding the Min
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_slicemin_int(const arma::Cube<int>& x, double mis_val) {
   int ns = x.n_slices;
   Rcpp::NumericVector ans(ns);
   for (int i = 0; i < ns; i++) {
-    arma::uvec sub = arma::find_finite(x.slice(i));
+    arma::uvec sub = arma::find(x.slice(i) != mis_val);
     if (sub.is_empty()) {
       ans[i] = NA_REAL;
       continue;
     } 
-    arma::vec test = arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub));
-    ans[i] = Rcpp::as<double>(fun(test));
+    ans[i] = arma::min(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
   }
   return ans;
 }
 
-
 // [[Rcpp::export]]
-arma::Cube<int> intna(const arma::Cube<int>& x) {
-  arma::Cube<int> y = x;
-  return y;
+Rcpp::NumericVector cpp_slicemin_num(const arma::Cube<double>& x, bool na_rm) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
+  for (int i = 0; i < ns; i++) {
+    if (na_rm == true) {
+      arma::uvec sub = arma::find_finite(x.slice(i));
+      if (sub.is_empty()) {
+        ans[i] = NA_REAL;
+        continue;
+      } 
+      ans[i] = arma::min(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
+    } else {
+      ans[i] = arma::min(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
+    }
+    
+  }
+  return ans;
 }
-
-// [[Rcpp::export]]
-double intna2(const arma::Cube<int>& x) {
-  return arma::mean(x(1, 1, 1));
-}
-
-
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////
