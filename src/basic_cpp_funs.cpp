@@ -68,18 +68,15 @@ Rcpp::NumericVector cpp_slicemax_num(const arma::Cube<double>& x, bool na_rm) {
   arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
   for (int i = 0; i < ns; i++) {
     if (na_rm == true) {
-      arma::uvec sub = arma::find_finite(x.slice(i));
-      if (sub.is_empty()) {
-        ans[i] = NA_REAL;
-        continue;
-      } 
-      ans[i] = arma::max(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
-    } else {
       ans[i] = arma::max(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
-    }
-    
+    } else if (x.slice(i).has_nonfinite()){
+      ans[i] = NA_REAL;
+      continue;
+    } else {
+    ans[i] = arma::max(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
   }
-  return ans;
+  }
+return ans;
 }
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -108,17 +105,14 @@ Rcpp::NumericVector cpp_slicemin_num(const arma::Cube<double>& x, bool na_rm) {
   arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
   for (int i = 0; i < ns; i++) {
     if (na_rm == true) {
-      arma::uvec sub = arma::find_finite(x.slice(i));
-      if (sub.is_empty()) {
-        ans[i] = NA_REAL;
-        continue;
-      } 
-      ans[i] = arma::min(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
+      ans[i] = arma::min(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
+    } else if (x.slice(i).has_nonfinite()){
+      ans[i] = NA_REAL;
+      continue;
     } else {
       ans[i] = arma::min(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
     }
-    
   }
-  return ans;
+return ans;
 }
 /////////////////////////////////////////////////////////////////////////////////

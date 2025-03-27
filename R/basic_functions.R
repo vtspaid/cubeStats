@@ -11,7 +11,7 @@
 #' @returns A vector of layer means.
 #' @examples
 #' small_matrix <- array(1:625, c(5, 5, 5))
-#' lyrMean(small_matrix)
+#' sliceMean(small_matrix)
 #' @export
 sliceMean <- function(x, na.rm = FALSE, mis_val = -2147483648) {
   if(is.integer(x)) {
@@ -31,7 +31,7 @@ sliceMean <- function(x, na.rm = FALSE, mis_val = -2147483648) {
 #' @returns A vector of layer/slice maximums.
 #' @examples
 #' small_matrix <- array(1:625, c(5, 5, 5))
-#' lyrMean(small_matrix)
+#' sliceMax(small_matrix)
 #' @export
 sliceMax <- function(x, na.rm = FALSE, mis_val = -2147483648) {
   if(is.integer(x)) {
@@ -51,7 +51,7 @@ sliceMax <- function(x, na.rm = FALSE, mis_val = -2147483648) {
 #' @returns A vector of layer/slice minimums.
 #' @examples
 #' small_matrix <- array(1:625, c(5, 5, 5))
-#' lyrMean(small_matrix)
+#' sliceMin(small_matrix)
 #' @export
 sliceMin <- function(x, na.rm = FALSE, mis_val = -2147483648) {
   if(is.integer(x)) {

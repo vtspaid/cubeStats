@@ -22,5 +22,5 @@ Get the min value of each layer in a 3d cube
 }
 \examples{
 small_matrix <- array(1:625, c(5, 5, 5))
-lyrMean(small_matrix)
+sliceMin(small_matrix)
 }
