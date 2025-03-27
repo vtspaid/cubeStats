@@ -83,6 +83,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_tubemean_int
+Rcpp::NumericVector cpp_tubemean_int(const arma::Cube<int>& x, double mis_val);
+RcppExport SEXP _cubeStats_cpp_tubemean_int(SEXP xSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubemean_int(x, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_tubemean_num
+Rcpp::NumericVector cpp_tubemean_num(const arma::Cube<double>& x, bool na_rm);
+RcppExport SEXP _cubeStats_cpp_tubemean_num(SEXP xSEXP, SEXP na_rmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubemean_num(x, na_rm));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_slicemean_int", (DL_FUNC) &_cubeStats_cpp_slicemean_int, 2},
@@ -91,6 +115,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_slicemax_num", (DL_FUNC) &_cubeStats_cpp_slicemax_num, 2},
     {"_cubeStats_cpp_slicemin_int", (DL_FUNC) &_cubeStats_cpp_slicemin_int, 2},
     {"_cubeStats_cpp_slicemin_num", (DL_FUNC) &_cubeStats_cpp_slicemin_num, 2},
+    {"_cubeStats_cpp_tubemean_int", (DL_FUNC) &_cubeStats_cpp_tubemean_int, 2},
+    {"_cubeStats_cpp_tubemean_num", (DL_FUNC) &_cubeStats_cpp_tubemean_num, 2},
     {NULL, NULL, 0}
 };
 

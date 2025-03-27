@@ -25,3 +25,11 @@ cpp_slicemin_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_slicemin_num`, x, na_rm)
 }
 
+cpp_tubemean_int <- function(x, mis_val) {
+    .Call(`_cubeStats_cpp_tubemean_int`, x, mis_val)
+}
+
+cpp_tubemean_num <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_tubemean_num`, x, na_rm)
+}
+
