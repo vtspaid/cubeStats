@@ -82,3 +82,29 @@ sliceMedian <- function(x, na.rm = FALSE, mis_val = -2147483648) {
   }
 }
 
+
+
+#' Get the sum of each layer in a 3d cube
+#' 
+#' @param x A 3d matrix/array.
+#' @param na.rm True or false, should NAs be removed before calculating the mean.
+#' @param mis_val An integer to use as the missing value if the input matrix
+#' is an integer type. Argument is ignored if the input array is numeric.
+#' @returns A vector of layer/slice sums.
+#' @examples
+#' small_matrix <- array(1:625, c(5, 5, 5))
+#' sliceSum(small_matrix)
+#' @export
+sliceSum <- function(x, 
+                     data = parent.frame(), 
+                     na.rm = FALSE, 
+                     mis_val = -2147483648) {
+  if(is.integer(x) | is.logical(x)) {
+    out <- cpp_slicesum_int(x, na_rm = na.rm, mis_val = mis_val)
+  } else  if (is.numeric(x)) {
+    out <- cpp_slicesum_num(x, na_rm = na.rm)
+  } 
+  return(out)
+} 
+
+

@@ -33,6 +33,14 @@ cpp_slicemedian_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_slicemedian_num`, x, na_rm)
 }
 
+cpp_slicesum_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_slicesum_int`, x, na_rm, mis_val)
+}
+
+cpp_slicesum_num <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_slicesum_num`, x, na_rm)
+}
+
 cpp_tubemean_int <- function(x, mis_val) {
     .Call(`_cubeStats_cpp_tubemean_int`, x, mis_val)
 }

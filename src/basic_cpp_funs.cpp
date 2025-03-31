@@ -147,12 +147,60 @@ Rcpp::NumericVector cpp_slicemedian_num(const arma::Cube<double>& x, bool na_rm)
         ans[i] = NA_REAL;
         continue;
       } 
-      ans[i] = arma::median(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
+      ans[i] = arma::median(x.slice(i).elem(sub));
     } else {
-      ans[i] = arma::median(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
+      ans[i] = arma::median(x.slice(i).elem(all));
     }
     
   }
   return ans;
 }
 /////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Functions for finding the sum
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_slicesum_int(const arma::Cube<int>& x,
+                                     bool na_rm,
+                                     double mis_val) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
+  for (int i = 0; i < ns; i++) {
+    if (na_rm == true) {
+      arma::uvec sub = arma::find(x.slice(i) != mis_val);
+      if (sub.is_empty()) {
+        ans[i] = 0;
+        continue;
+      } 
+    ans[i] = arma::sum(x.slice(i).elem(sub));
+    } else {
+      ans[i] = arma::sum(x.slice(i).elem(all));
+    }
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_slicesum_num(const arma::Cube<double>& x, bool na_rm) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
+  for (int i = 0; i < ns; i++) {
+    if (na_rm == true) {
+      arma::uvec sub = arma::find_finite(x.slice(i));
+      if (sub.is_empty()) {
+        ans[i] = 0;
+        continue;
+      } 
+      ans[i] = arma::sum(x.slice(i).elem(sub));
+    } else {
+      ans[i] = arma::sum(x.slice(i).elem(all));
+    }
+    
+  }
+  return ans;
+}
+/////////////////////////////////////////////////////////////////////////////////
+
