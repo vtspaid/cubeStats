@@ -14,8 +14,8 @@
 #' sliceMean(small_matrix)
 #' @export
 sliceMean <- function(x, na.rm = FALSE, mis_val = -2147483648) {
-  if(is.integer(x)) {
-    cpp_slicemean_int(x, mis_val = mis_val)
+  if (is.integer(x)) {
+    cpp_slicemean_int(x, na_rm = na.rm, mis_val = mis_val)
   } else {
     cpp_slicemean_num(x, na_rm = na.rm)
   }
@@ -95,8 +95,7 @@ sliceMedian <- function(x, na.rm = FALSE, mis_val = -2147483648) {
 #' small_matrix <- array(1:625, c(5, 5, 5))
 #' sliceSum(small_matrix)
 #' @export
-sliceSum <- function(x, 
-                     data = parent.frame(), 
+sliceSum <- function(x,
                      na.rm = FALSE, 
                      mis_val = -2147483648) {
   if(is.integer(x) | is.logical(x)) {
@@ -107,4 +106,48 @@ sliceSum <- function(x,
   return(out)
 } 
 
+
+#' Evaluate simple expressions
+#' 
+#' @param x A 3d matrix/array.
+#' @param na.rm True or false, should NAs be removed before calculating the mean.
+#' @param mis_val An integer to use as the missing value if the input matrix
+#' is an integer type. Argument is ignored if the input array is numeric.
+#' @returns A vector of layer/slice sums based on evaluation.
+#' @examples
+#' small_matrix <- array(1:625, c(5, 5, 5))
+#' sliceSum(small_matrix)
+#' @export
+sliceEval <- function(x,
+                      expression = c(">", "<", "==", "within"),
+                      value,
+                      na.rm = FALSE, 
+                      mis_val = -2147483648) {
+  if (is.integer(x)) {
+    if (expression == ">") {
+      out <- cpp_slicegreater_int(x, na_rm = na.rm, value = value, mis_val = mis_val)
+    } else if (expression == "<") {
+      out <- cpp_sliceless_int(x, na_rm = na.rm, value = value, mis_val = mis_val)
+    } else if (expression == "==") {
+      out <- cpp_sliceequal_int(x, na_rm = na.rm, value = value, mis_val = mis_val)
+    } else if (expression == "within") {
+      out <- cpp_slicerange_int(x, na_rm = na.rm, value[1], value[2], mis_val = mis_val)
+    } else{
+      stop("expression = ", expression, "; when it should be one of '>', '<', '==', or 'within'")
+    }
+  } else {
+    if (expression == ">") {
+      out <- cpp_slicegreater_num(x, na_rm = na.rm, value = value)
+    } else if (expression == "<") {
+      out <- cpp_sliceless_num(x, na_rm = na.rm, value = value)
+    } else if (expression == "==") {
+      out <- cpp_sliceequal_num(x, na_rm = na.rm, value = value)
+    } else if (expression == "within") {
+      out <- cpp_slicerange_num(x, na_rm = na.rm, value[1], value[2])
+    } else{
+      stop("expression = ", expression, "; when it should be one of '>', '<', '==', or 'within'")
+    }
+    return(out)
+  }
+} 
 

@@ -12,14 +12,15 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // cpp_slicemean_int
-Rcpp::NumericVector cpp_slicemean_int(const arma::Cube<int>& x, double mis_val);
-RcppExport SEXP _cubeStats_cpp_slicemean_int(SEXP xSEXP, SEXP mis_valSEXP) {
+Rcpp::NumericVector cpp_slicemean_int(const arma::Cube<int>& x, bool na_rm, double mis_val);
+RcppExport SEXP _cubeStats_cpp_slicemean_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
     Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_slicemean_int(x, mis_val));
+    rcpp_result_gen = Rcpp::wrap(cpp_slicemean_int(x, na_rm, mis_val));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -132,6 +133,116 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_slicegreater_int
+Rcpp::NumericVector cpp_slicegreater_int(const arma::Cube<int>& x, bool na_rm, double value, double mis_val);
+RcppExport SEXP _cubeStats_cpp_slicegreater_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicegreater_int(x, na_rm, value, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_slicegreater_num
+Rcpp::NumericVector cpp_slicegreater_num(const arma::Cube<double>& x, bool na_rm, double value);
+RcppExport SEXP _cubeStats_cpp_slicegreater_num(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicegreater_num(x, na_rm, value));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_sliceless_int
+Rcpp::NumericVector cpp_sliceless_int(const arma::Cube<int>& x, bool na_rm, double value, double mis_val);
+RcppExport SEXP _cubeStats_cpp_sliceless_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_sliceless_int(x, na_rm, value, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_sliceless_num
+Rcpp::NumericVector cpp_sliceless_num(const arma::Cube<double>& x, bool na_rm, double value);
+RcppExport SEXP _cubeStats_cpp_sliceless_num(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_sliceless_num(x, na_rm, value));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_slicerange_int
+Rcpp::NumericVector cpp_slicerange_int(const arma::Cube<int>& x, bool na_rm, double value1, double value2, double mis_val);
+RcppExport SEXP _cubeStats_cpp_slicerange_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP value1SEXP, SEXP value2SEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value1(value1SEXP);
+    Rcpp::traits::input_parameter< double >::type value2(value2SEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicerange_int(x, na_rm, value1, value2, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_slicerange_num
+Rcpp::NumericVector cpp_slicerange_num(const arma::Cube<double>& x, bool na_rm, double value1, double value2);
+RcppExport SEXP _cubeStats_cpp_slicerange_num(SEXP xSEXP, SEXP na_rmSEXP, SEXP value1SEXP, SEXP value2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value1(value1SEXP);
+    Rcpp::traits::input_parameter< double >::type value2(value2SEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicerange_num(x, na_rm, value1, value2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_sliceequal_int
+Rcpp::NumericVector cpp_sliceequal_int(const arma::Cube<int>& x, bool na_rm, double value, double mis_val);
+RcppExport SEXP _cubeStats_cpp_sliceequal_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_sliceequal_int(x, na_rm, value, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_sliceequal_num
+Rcpp::NumericVector cpp_sliceequal_num(const arma::Cube<double>& x, bool na_rm, double value);
+RcppExport SEXP _cubeStats_cpp_sliceequal_num(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_sliceequal_num(x, na_rm, value));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cpp_tubemean_int
 Rcpp::NumericVector cpp_tubemean_int(const arma::Cube<int>& x, double mis_val);
 RcppExport SEXP _cubeStats_cpp_tubemean_int(SEXP xSEXP, SEXP mis_valSEXP) {
@@ -158,7 +269,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_cubeStats_cpp_slicemean_int", (DL_FUNC) &_cubeStats_cpp_slicemean_int, 2},
+    {"_cubeStats_cpp_slicemean_int", (DL_FUNC) &_cubeStats_cpp_slicemean_int, 3},
     {"_cubeStats_cpp_slicemean_num", (DL_FUNC) &_cubeStats_cpp_slicemean_num, 2},
     {"_cubeStats_cpp_slicemax_int", (DL_FUNC) &_cubeStats_cpp_slicemax_int, 2},
     {"_cubeStats_cpp_slicemax_num", (DL_FUNC) &_cubeStats_cpp_slicemax_num, 2},
@@ -168,6 +279,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_slicemedian_num", (DL_FUNC) &_cubeStats_cpp_slicemedian_num, 2},
     {"_cubeStats_cpp_slicesum_int", (DL_FUNC) &_cubeStats_cpp_slicesum_int, 3},
     {"_cubeStats_cpp_slicesum_num", (DL_FUNC) &_cubeStats_cpp_slicesum_num, 2},
+    {"_cubeStats_cpp_slicegreater_int", (DL_FUNC) &_cubeStats_cpp_slicegreater_int, 4},
+    {"_cubeStats_cpp_slicegreater_num", (DL_FUNC) &_cubeStats_cpp_slicegreater_num, 3},
+    {"_cubeStats_cpp_sliceless_int", (DL_FUNC) &_cubeStats_cpp_sliceless_int, 4},
+    {"_cubeStats_cpp_sliceless_num", (DL_FUNC) &_cubeStats_cpp_sliceless_num, 3},
+    {"_cubeStats_cpp_slicerange_int", (DL_FUNC) &_cubeStats_cpp_slicerange_int, 5},
+    {"_cubeStats_cpp_slicerange_num", (DL_FUNC) &_cubeStats_cpp_slicerange_num, 4},
+    {"_cubeStats_cpp_sliceequal_int", (DL_FUNC) &_cubeStats_cpp_sliceequal_int, 4},
+    {"_cubeStats_cpp_sliceequal_num", (DL_FUNC) &_cubeStats_cpp_sliceequal_num, 3},
     {"_cubeStats_cpp_tubemean_int", (DL_FUNC) &_cubeStats_cpp_tubemean_int, 2},
     {"_cubeStats_cpp_tubemean_num", (DL_FUNC) &_cubeStats_cpp_tubemean_num, 2},
     {NULL, NULL, 0}

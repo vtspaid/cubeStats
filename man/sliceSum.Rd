@@ -4,7 +4,7 @@
 \alias{sliceSum}
 \title{Get the sum of each layer in a 3d cube}
 \usage{
-sliceSum(x, data = parent.frame(), na.rm = FALSE, mis_val = -2147483648)
+sliceSum(x, na.rm = FALSE, mis_val = -2147483648)
 }
 \arguments{
 \item{x}{A 3d matrix/array.}
