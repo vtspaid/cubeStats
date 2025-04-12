@@ -18,3 +18,4 @@ tubeMean <- function(x, na.rm = FALSE, mis_val = -2147483648) {
     cpp_tubemean_num(x, na_rm = na.rm)
   }
 }
+

@@ -9,20 +9,28 @@ cpp_slicemean_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_slicemean_num`, x, na_rm)
 }
 
-cpp_slicemax_int <- function(x, mis_val) {
-    .Call(`_cubeStats_cpp_slicemax_int`, x, mis_val)
+cpp_slicemax_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_slicemax_int`, x, na_rm, mis_val)
 }
 
 cpp_slicemax_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_slicemax_num`, x, na_rm)
 }
 
-cpp_slicemin_int <- function(x, mis_val) {
-    .Call(`_cubeStats_cpp_slicemin_int`, x, mis_val)
+cpp_slicemin_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_slicemin_int`, x, na_rm, mis_val)
 }
 
 cpp_slicemin_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_slicemin_num`, x, na_rm)
+}
+
+cpp_slicemin_int2 <- function(x, mis_val) {
+    .Call(`_cubeStats_cpp_slicemin_int2`, x, mis_val)
+}
+
+cpp_slicemin_num2 <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_slicemin_num2`, x, na_rm)
 }
 
 cpp_slicemedian_int <- function(x, mis_val) {

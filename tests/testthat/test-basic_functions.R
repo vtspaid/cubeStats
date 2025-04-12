@@ -20,6 +20,7 @@ dim(flat_mat_na) <- c(25, 5)
 flat_mat_na_int <- test_mat_na_int
 dim(flat_mat_na_int) <- c(25, 5) 
 
+# SliceMean ----------------------------------------------
 test_that("sliceMean works", {
   expect_equal(sliceMean(test_mat), c(6.28, 6.32, 6.36, 6.40, 6.44))
   expect_equal(sliceMean(test_mat_na_1), c(NA, 6.32, 6.36, 6.40, 6.44))
@@ -28,7 +29,7 @@ test_that("sliceMean works", {
   
 })
 
-test_that("sliceMean works on numerics", {
+test_that("sliceMean works on integers", {
   expect_equal(sliceMean(test_mat_int), c(6.28, 6.32, 6.36, 6.40, 6.44))
   expect_equal(sliceMean(test_mat_na_1_int), c(NA, 6.32, 6.36, 6.40, 6.44))
   expect_equal(sliceMean(test_mat_na_int), c(6.28, 6.32, NA, NA, NA))
@@ -36,4 +37,33 @@ test_that("sliceMean works on numerics", {
   
 })
 
+# sliceMin ---------------------------------------
+test_that("sliceMin works", {
+  expect_equal(sliceMin(test_mat_int), sapply(1:5, function(x) min(test_mat_int[, , x])))
+  expect_equal(sliceMin(test_mat_na_1_int, na.rm = TRUE), 
+               sapply(1:5, function(x) min(test_mat_na_1_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceMin(test_mat_na, na.rm = TRUE), 
+               sapply(1:5, function(x) min(test_mat_na[, , x], na.rm = TRUE)))
+  expect_equal(sliceMin(test_mat), sapply(1:5, function(x) min(test_mat[, , x])))
+  expect_equal(sliceMin(test_mat_na_int, na.rm = TRUE), 
+               sapply(1:5, function(x) min(test_mat_na_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceMin(test_mat_na_1, na.rm = TRUE), 
+               sapply(1:5, function(x) min(test_mat_na_1[, , x], na.rm = TRUE)))
+  
+})
+
+# sliceMax -------------------------------------
+test_that("sliceMax works", {
+  expect_equal(sliceMax(test_mat_int), sapply(1:5, function(x) max(test_mat_int[, , x])))
+  expect_equal(sliceMax(test_mat_na_1_int, na.rm = TRUE), 
+               sapply(1:5, function(x) max(test_mat_na_1_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceMax(test_mat_na, na.rm = TRUE), 
+               sapply(1:5, function(x) max(test_mat_na[, , x], na.rm = TRUE)))
+  expect_equal(sliceMax(test_mat), sapply(1:5, function(x) max(test_mat[, , x])))
+  expect_equal(sliceMax(test_mat_na_int, na.rm = TRUE), 
+               sapply(1:5, function(x) max(test_mat_na_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceMax(test_mat_na_1, na.rm = TRUE), 
+               sapply(1:5, function(x) max(test_mat_na_1[, , x], na.rm = TRUE)))
+  
+})
 

@@ -35,12 +35,11 @@ sliceMean <- function(x, na.rm = FALSE, mis_val = -2147483648) {
 #' @export
 sliceMax <- function(x, na.rm = FALSE, mis_val = -2147483648) {
   if(is.integer(x)) {
-    cpp_slicemax_int(x, mis_val = mis_val)
+    cpp_slicemax_int(x, na_rm = na.rm, mis_val = mis_val)
   } else {
     cpp_slicemax_num(x, na_rm = na.rm)
   }
 }
-
 
 #' Get the min value of each layer in a 3d cube
 #' 
@@ -55,7 +54,7 @@ sliceMax <- function(x, na.rm = FALSE, mis_val = -2147483648) {
 #' @export
 sliceMin <- function(x, na.rm = FALSE, mis_val = -2147483648) {
   if(is.integer(x)) {
-    cpp_slicemin_int(x, mis_val = mis_val)
+    cpp_slicemin_int(x, na_rm = na.rm, mis_val = mis_val)
   } else {
     cpp_slicemin_num(x, na_rm = na.rm)
   }
