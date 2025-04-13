@@ -41,6 +41,7 @@ sliceMax <- function(x, na.rm = FALSE, mis_val = -2147483648) {
   }
 }
 
+################################################################################
 #' Get the min value of each layer in a 3d cube
 #' 
 #' @param x A 3d matrix/array.
@@ -61,7 +62,7 @@ sliceMin <- function(x, na.rm = FALSE, mis_val = -2147483648) {
 }
 
 
-
+################################################################################
 #' Get the median value of each layer in a 3d cube
 #' 
 #' @param x A 3d matrix/array.
@@ -75,7 +76,7 @@ sliceMin <- function(x, na.rm = FALSE, mis_val = -2147483648) {
 #' @export
 sliceMedian <- function(x, na.rm = FALSE, mis_val = -2147483648) {
   if(is.integer(x)) {
-    cpp_slicemedian_int(x, mis_val = mis_val)
+    cpp_slicemedian_int(x, na_rm = na.rm, mis_val = mis_val)
   } else {
     cpp_slicemedian_num(x, na_rm = na.rm)
   }

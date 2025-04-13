@@ -10,10 +10,10 @@
 // [[RCPP::export]]
 template <typename T>
 Rcpp::NumericVector cpp_slicefun(const arma::Cube<T>& x, 
-                                  bool na_rm, 
-                                  double (*armaFunc)(const arma::colvec&),
-                                  bool auto_na,
-                                  double mis_val = -2147483648) {
+                                 bool na_rm, 
+                                 double (*armaFunc)(const arma::colvec&),
+                                 bool auto_na,
+                                 double mis_val = -2147483648) {
   int ns = x.n_slices;
   Rcpp::NumericVector ans(ns);
   
@@ -60,10 +60,11 @@ Rcpp::NumericVector cpp_slicefun(const arma::Cube<T>& x,
   return ans;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Function to compute the mean //////
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicemean_int(const arma::Cube<int>& x, 
                                       bool na_rm, 
-                                      
                                       double mis_val) {
   return cpp_slicefun(x, na_rm, arma::mean, true, mis_val);
 }
@@ -73,7 +74,7 @@ Rcpp::NumericVector cpp_slicemean_num(const arma::Cube<double>& x, bool na_rm) {
   return cpp_slicefun(x, na_rm, arma::mean, true);
 }
 ////////////////////////////////////////////////////////////////////////////////
-
+// Functions for finding the Max
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicemax_int(const arma::Cube<int>& x, 
                                       bool na_rm, 
@@ -103,80 +104,25 @@ Rcpp::NumericVector cpp_slicemin_num(const arma::Cube<double>& x, bool na_rm) {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Functions for finding the Min
-// [[Rcpp::export]]
-Rcpp::NumericVector cpp_slicemin_int2(const arma::Cube<int>& x, double mis_val) {
-  int ns = x.n_slices;
-  Rcpp::NumericVector ans(ns);
-  for (int i = 0; i < ns; i++) {
-    arma::uvec sub = arma::find(x.slice(i) != mis_val);
-    if (sub.is_empty()) {
-      ans[i] = NA_REAL;
-      continue;
-    } 
-    ans[i] = arma::min(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
-  }
-  return ans;
-}
 
-// [[Rcpp::export]]
-Rcpp::NumericVector cpp_slicemin_num2(const arma::Cube<double>& x, bool na_rm) {
-  int ns = x.n_slices;
-  Rcpp::NumericVector ans(ns);
-  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
-  for (int i = 0; i < ns; i++) {
-    if (na_rm == true) {
-      ans[i] = arma::min(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
-    } else if (x.slice(i).has_nonfinite()){
-      ans[i] = NA_REAL;
-      continue;
-    } else {
-      ans[i] = arma::min(arma::conv_to<arma::colvec>::from(x.slice(i).elem(all)));
-    }
-  }
-return ans;
-}
 /////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Functions for finding the Mean
+// Functions for finding the Median
 // [[Rcpp::export]]
-Rcpp::NumericVector cpp_slicemedian_int(const arma::Cube<int>& x, double mis_val) {
-  int ns = x.n_slices;
-  Rcpp::NumericVector ans(ns);
-  for (int i = 0; i < ns; i++) {
-    arma::uvec sub = arma::find(x.slice(i) != mis_val);
-    if (sub.is_empty()) {
-      ans[i] = NA_REAL;
-      continue;
-    } 
-    ans[i] = arma::median(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
-  }
-  return ans;
+Rcpp::NumericVector cpp_slicemedian_int(const arma::Cube<int>& x, 
+                                        bool na_rm, 
+                                        double mis_val) {
+  return cpp_slicefun(x, na_rm, arma::median, true, mis_val);
 }
 
 // [[Rcpp::export]]
-Rcpp::NumericVector cpp_slicemedian_num(const arma::Cube<double>& x, bool na_rm) {
-  int ns = x.n_slices;
-  Rcpp::NumericVector ans(ns);
-  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(1).n_elem-1);
-  for (int i = 0; i < ns; i++) {
-    if (na_rm == true) {
-      arma::uvec sub = arma::find_finite(x.slice(i));
-      if (sub.is_empty()) {
-        ans[i] = NA_REAL;
-        continue;
-      } 
-      ans[i] = arma::median(x.slice(i).elem(sub));
-    } else {
-      ans[i] = arma::median(x.slice(i).elem(all));
-    }
-    
-  }
-  return ans;
+Rcpp::NumericVector cpp_slicemedian_num(const arma::Cube<double>& x, 
+                                        bool na_rm) {
+  return cpp_slicefun(x, na_rm, arma::median, true);
 }
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
