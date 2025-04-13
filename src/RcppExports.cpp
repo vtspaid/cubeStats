@@ -136,6 +136,42 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_slicesd_int
+Rcpp::NumericVector cpp_slicesd_int(const arma::Cube<int>& x, bool na_rm, double mis_val);
+RcppExport SEXP _cubeStats_cpp_slicesd_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicesd_int(x, na_rm, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_slicesd_num
+Rcpp::NumericVector cpp_slicesd_num(const arma::Cube<double>& x, bool na_rm);
+RcppExport SEXP _cubeStats_cpp_slicesd_num(SEXP xSEXP, SEXP na_rmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicesd_num(x, na_rm));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_test
+Rcpp::NumericVector cpp_test(const arma::Cube<double>& x);
+RcppExport SEXP _cubeStats_cpp_test(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_test(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cpp_slicegreater_int
 Rcpp::NumericVector cpp_slicegreater_int(const arma::Cube<int>& x, bool na_rm, double value, double mis_val);
 RcppExport SEXP _cubeStats_cpp_slicegreater_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP, SEXP mis_valSEXP) {
@@ -282,6 +318,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_slicemedian_num", (DL_FUNC) &_cubeStats_cpp_slicemedian_num, 2},
     {"_cubeStats_cpp_slicesum_int", (DL_FUNC) &_cubeStats_cpp_slicesum_int, 3},
     {"_cubeStats_cpp_slicesum_num", (DL_FUNC) &_cubeStats_cpp_slicesum_num, 2},
+    {"_cubeStats_cpp_slicesd_int", (DL_FUNC) &_cubeStats_cpp_slicesd_int, 3},
+    {"_cubeStats_cpp_slicesd_num", (DL_FUNC) &_cubeStats_cpp_slicesd_num, 2},
+    {"_cubeStats_cpp_test", (DL_FUNC) &_cubeStats_cpp_test, 1},
     {"_cubeStats_cpp_slicegreater_int", (DL_FUNC) &_cubeStats_cpp_slicegreater_int, 4},
     {"_cubeStats_cpp_slicegreater_num", (DL_FUNC) &_cubeStats_cpp_slicegreater_num, 3},
     {"_cubeStats_cpp_sliceless_int", (DL_FUNC) &_cubeStats_cpp_sliceless_int, 4},

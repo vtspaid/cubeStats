@@ -152,7 +152,35 @@ Rcpp::NumericVector cpp_slicesum_num(const arma::Cube<double>& x,
 }
 /////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+// Functions for finding the standard deviation
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_slicesd_int(const arma::Cube<int>& x,
+                                     bool na_rm,
+                                     double mis_val) {
+  //return cpp_slicefun(x, na_rm, arma::sum, true, mis_val);
+  return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::stddev(v); }, true, mis_val);
+}
 
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_slicesd_num(const arma::Cube<double>& x, 
+                                     bool na_rm) {
+  // return cpp_slicefun(x, na_rm, arma::sum, true);
+  return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::stddev(v); }, true);
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_test(const arma::Cube<double>& x) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(0).n_elem-1);
+  for (int i = 0; i < ns; i++) {
+    ans[i] = arma::stddev(x.slice(i).elem(all));
+  }
+  return ans;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 // Evaluation functions

@@ -96,3 +96,18 @@ test_that("sliceSum works", {
                sapply(1:5, function(x) sum(test_mat_na_1[, , x], na.rm = TRUE)))
   
 })
+
+# sliceSd
+test_that("sliceSd works", {
+  expect_equal(sliceSd(test_mat_int), sapply(1:5, function(x) sd(test_mat_int[, , x])))
+  expect_equal(sliceSd(test_mat_na_1_int, na.rm = TRUE), 
+               sapply(1:5, function(x) sd(test_mat_na_1_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceSd(test_mat_na, na.rm = TRUE), 
+               sapply(1:5, function(x) sd(test_mat_na[, , x], na.rm = TRUE)))
+  expect_equal(sliceSd(test_mat), sapply(1:5, function(x) sd(test_mat[, , x])))
+  expect_equal(sliceSd(test_mat_na_int, na.rm = TRUE), 
+               sapply(1:5, function(x) sd(test_mat_na_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceSd(test_mat_na_1, na.rm = TRUE), 
+               sapply(1:5, function(x) sd(test_mat_na_1[, , x], na.rm = TRUE)))
+  
+})

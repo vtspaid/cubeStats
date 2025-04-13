@@ -41,6 +41,18 @@ cpp_slicesum_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_slicesum_num`, x, na_rm)
 }
 
+cpp_slicesd_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_slicesd_int`, x, na_rm, mis_val)
+}
+
+cpp_slicesd_num <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_slicesd_num`, x, na_rm)
+}
+
+cpp_test <- function(x) {
+    .Call(`_cubeStats_cpp_test`, x)
+}
+
 cpp_slicegreater_int <- function(x, na_rm, value, mis_val) {
     .Call(`_cubeStats_cpp_slicegreater_int`, x, na_rm, value, mis_val)
 }
