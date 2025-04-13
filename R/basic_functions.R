@@ -146,7 +146,7 @@ sliceSd <- function(x,
 #' 
 #' @examples
 #' small_matrix <- array(1:625, c(5, 5, 5))
-#' sliceSum(small_matrix)
+#' sliceEval(small_matrix)
 #' @export
 sliceEval <- function(x,
                       expression = c(">", "<", "==", "within"),

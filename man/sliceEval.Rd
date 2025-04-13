@@ -36,5 +36,5 @@ Within uses x > value[1] && x < value[2]
 }
 \examples{
 small_matrix <- array(1:625, c(5, 5, 5))
-sliceSum(small_matrix)
+sliceEval(small_matrix)
 }
