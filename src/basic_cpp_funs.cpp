@@ -394,3 +394,66 @@ Rcpp::NumericVector cpp_sliceequal_num(const arma::Cube<double>& x,
 // End of evaluate functions
 ///////////////////////////////////////////////////////////////////////////////
 
+
+///////////////////////////////////////////////////////////////////////////////
+// Functions for finding if all values are finite or not
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_slicefinite_num(const arma::Cube<double>& x) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    ans[i] = x.slice(i).is_finite();
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_slicefinite_int(const arma::Cube<int>& x, double mis_val) {
+  int ns = x.n_slices;
+  int tot = x.slice(0).n_elem;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    arma::uvec sub = arma::find(x.slice(i) != mis_val);
+    if (sub.n_elem == tot) {
+      ans[i] = 1;
+    } else{
+      ans[i] = 0;
+    }
+  }
+  return ans;
+}
+////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// Functions for finding if all values are na or not
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_slicena_num(const arma::Cube<double>& x) {
+  int ns = x.n_slices;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    arma::uvec sub = arma::find_finite(x.slice(i));
+    if (sub.n_elem == 0) {
+      ans[i] = 1;
+    } else{
+      ans[i] = 0;
+    }
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_slicena_int(const arma::Cube<int>& x, double mis_val) {
+  int ns = x.n_slices;
+  int tot = x.slice(0).n_elem;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    arma::uvec sub = arma::find(x.slice(i) != mis_val);
+    if (sub.n_elem == 0) {
+      ans[i] = 1;
+    } else{
+      ans[i] = 0;
+    }
+  }
+  return ans;
+}
+////////////////////////////////////////////////////////////////////////////////

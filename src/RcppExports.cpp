@@ -282,6 +282,52 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_slicefinite_num
+Rcpp::NumericVector cpp_slicefinite_num(const arma::Cube<double>& x);
+RcppExport SEXP _cubeStats_cpp_slicefinite_num(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicefinite_num(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_slicefinite_int
+Rcpp::NumericVector cpp_slicefinite_int(const arma::Cube<int>& x, double mis_val);
+RcppExport SEXP _cubeStats_cpp_slicefinite_int(SEXP xSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicefinite_int(x, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_slicena_num
+Rcpp::NumericVector cpp_slicena_num(const arma::Cube<double>& x);
+RcppExport SEXP _cubeStats_cpp_slicena_num(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicena_num(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_slicena_int
+Rcpp::NumericVector cpp_slicena_int(const arma::Cube<int>& x, double mis_val);
+RcppExport SEXP _cubeStats_cpp_slicena_int(SEXP xSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_slicena_int(x, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cpp_tubemean_int
 Rcpp::NumericVector cpp_tubemean_int(const arma::Cube<int>& x, double mis_val);
 RcppExport SEXP _cubeStats_cpp_tubemean_int(SEXP xSEXP, SEXP mis_valSEXP) {
@@ -329,6 +375,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_slicerange_num", (DL_FUNC) &_cubeStats_cpp_slicerange_num, 4},
     {"_cubeStats_cpp_sliceequal_int", (DL_FUNC) &_cubeStats_cpp_sliceequal_int, 4},
     {"_cubeStats_cpp_sliceequal_num", (DL_FUNC) &_cubeStats_cpp_sliceequal_num, 3},
+    {"_cubeStats_cpp_slicefinite_num", (DL_FUNC) &_cubeStats_cpp_slicefinite_num, 1},
+    {"_cubeStats_cpp_slicefinite_int", (DL_FUNC) &_cubeStats_cpp_slicefinite_int, 2},
+    {"_cubeStats_cpp_slicena_num", (DL_FUNC) &_cubeStats_cpp_slicena_num, 1},
+    {"_cubeStats_cpp_slicena_int", (DL_FUNC) &_cubeStats_cpp_slicena_int, 2},
     {"_cubeStats_cpp_tubemean_int", (DL_FUNC) &_cubeStats_cpp_tubemean_int, 2},
     {"_cubeStats_cpp_tubemean_num", (DL_FUNC) &_cubeStats_cpp_tubemean_num, 2},
     {NULL, NULL, 0}

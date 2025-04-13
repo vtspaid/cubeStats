@@ -85,6 +85,22 @@ cpp_sliceequal_num <- function(x, na_rm, value) {
     .Call(`_cubeStats_cpp_sliceequal_num`, x, na_rm, value)
 }
 
+cpp_slicefinite_num <- function(x) {
+    .Call(`_cubeStats_cpp_slicefinite_num`, x)
+}
+
+cpp_slicefinite_int <- function(x, mis_val) {
+    .Call(`_cubeStats_cpp_slicefinite_int`, x, mis_val)
+}
+
+cpp_slicena_num <- function(x) {
+    .Call(`_cubeStats_cpp_slicena_num`, x)
+}
+
+cpp_slicena_int <- function(x, mis_val) {
+    .Call(`_cubeStats_cpp_slicena_int`, x, mis_val)
+}
+
 cpp_tubemean_int <- function(x, mis_val) {
     .Call(`_cubeStats_cpp_tubemean_int`, x, mis_val)
 }
