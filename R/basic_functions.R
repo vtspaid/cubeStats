@@ -83,7 +83,7 @@ sliceMedian <- function(x, na.rm = FALSE, mis_val = -2147483648) {
 }
 
 
-
+################################################################################
 #' Get the sum of each layer in a 3d cube
 #' 
 #' @param x A 3d matrix/array.

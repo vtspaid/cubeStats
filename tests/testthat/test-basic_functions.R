@@ -1,5 +1,5 @@
 
-# create a simple matrix to test
+# create a simple matrix to test ---------------
 test_mat <- array(1:12, c(5, 5, 5))
 test_mat_int <- test_mat
 mode(test_mat) <- "numeric"
@@ -67,3 +67,32 @@ test_that("sliceMax works", {
   
 })
 
+# sliceMedian --------
+test_that("sliceMedian works", {
+  expect_equal(sliceMedian(test_mat_int), sapply(1:5, function(x) median(test_mat_int[, , x])))
+  expect_equal(sliceMedian(test_mat_na_1_int, na.rm = TRUE), 
+               sapply(1:5, function(x) median(test_mat_na_1_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceMedian(test_mat_na, na.rm = TRUE), 
+               sapply(1:5, function(x) median(test_mat_na[, , x], na.rm = TRUE)))
+  expect_equal(sliceMedian(test_mat), sapply(1:5, function(x) median(test_mat[, , x])))
+  expect_equal(sliceMedian(test_mat_na_int, na.rm = TRUE), 
+               sapply(1:5, function(x) median(test_mat_na_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceMedian(test_mat_na_1, na.rm = TRUE), 
+               sapply(1:5, function(x) median(test_mat_na_1[, , x], na.rm = TRUE)))
+  
+})
+
+# sliceSum --------------
+test_that("sliceSum works", {
+  expect_equal(sliceSum(test_mat_int), sapply(1:5, function(x) sum(test_mat_int[, , x])))
+  expect_equal(sliceSum(test_mat_na_1_int, na.rm = TRUE), 
+               sapply(1:5, function(x) sum(test_mat_na_1_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceSum(test_mat_na, na.rm = TRUE), 
+               sapply(1:5, function(x) sum(test_mat_na[, , x], na.rm = TRUE)))
+  expect_equal(sliceSum(test_mat), sapply(1:5, function(x) sum(test_mat[, , x])))
+  expect_equal(sliceSum(test_mat_na_int, na.rm = TRUE), 
+               sapply(1:5, function(x) sum(test_mat_na_int[, , x], na.rm = TRUE)))
+  expect_equal(sliceSum(test_mat_na_1, na.rm = TRUE), 
+               sapply(1:5, function(x) sum(test_mat_na_1[, , x], na.rm = TRUE)))
+  
+})
