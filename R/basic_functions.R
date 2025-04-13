@@ -133,10 +133,17 @@ sliceSd <- function(x,
 #' Evaluate simple expressions
 #' 
 #' @param x A 3d matrix/array.
+#' @param expression Character: one of c(">", "<", "==", "within").
+#' @param value Numeric Vector of length 1 in most cases or length 2 when 
+#' `expression = "within"`
 #' @param na.rm True or false, should NAs be removed before calculating the mean.
 #' @param mis_val An integer to use as the missing value if the input matrix
 #' is an integer type. Argument is ignored if the input array is numeric.
 #' @returns A vector of layer/slice sums based on evaluation.
+#' 
+#' @details
+#' Within uses x > value[1] && x < value[2]
+#' 
 #' @examples
 #' small_matrix <- array(1:625, c(5, 5, 5))
 #' sliceSum(small_matrix)
@@ -155,7 +162,7 @@ sliceEval <- function(x,
       out <- cpp_sliceequal_int(x, na_rm = na.rm, value = value, mis_val = mis_val)
     } else if (expression == "within") {
       out <- cpp_slicerange_int(x, na_rm = na.rm, value[1], value[2], mis_val = mis_val)
-    } else{
+    } else {
       stop("expression = ", expression, "; when it should be one of '>', '<', '==', or 'within'")
     }
   } else {
@@ -170,7 +177,7 @@ sliceEval <- function(x,
     } else{
       stop("expression = ", expression, "; when it should be one of '>', '<', '==', or 'within'")
     }
-    return(out)
   }
+  return(out)
 } 
 

@@ -97,7 +97,7 @@ test_that("sliceSum works", {
   
 })
 
-# sliceSd
+# sliceSd ------------
 test_that("sliceSd works", {
   expect_equal(sliceSd(test_mat_int), sapply(1:5, function(x) sd(test_mat_int[, , x])))
   expect_equal(sliceSd(test_mat_na_1_int, na.rm = TRUE), 
@@ -110,4 +110,25 @@ test_that("sliceSd works", {
   expect_equal(sliceSd(test_mat_na_1, na.rm = TRUE), 
                sapply(1:5, function(x) sd(test_mat_na_1[, , x], na.rm = TRUE)))
   
+})
+
+# sliceEval --------------
+test_that("sliceEval works", {
+  expect_equal(sliceEval(test_mat, ">", 5), 
+               sapply(1:5, function(x) sum(test_mat[, , x] > 5)))
+  expect_equal(sliceEval(test_mat_int, ">", 5), 
+               sapply(1:5, function(x) sum(test_mat_int[, , x] > 5)))
+  expect_equal(sliceEval(test_mat, "<", 5), 
+               sapply(1:5, function(x) sum(test_mat[, , x] < 5)))
+  expect_equal(sliceEval(test_mat, "within", c(5, 10)), 
+               sapply(1:5, function(x) sum(test_mat[, , x] > 5 & 
+                                             test_mat[, , x] < 10)))
+  expect_equal(sliceEval(test_mat_int, "==", 5), 
+               sapply(1:5, function(x) sum(test_mat_int[, , x] == 5)))
+  expect_equal(sliceEval(test_mat, "==", 5), 
+               sapply(1:5, function(x) sum(test_mat[, , x] == 5)))
+  expect_equal(sliceEval(test_mat_na, "==", 5), 
+               sapply(1:5, function(x) sum(test_mat_na[, , x] == 5)))
+  expect_equal(sliceEval(test_mat_na_int, ">", 5), 
+               sapply(1:5, function(x) sum(test_mat_na_int[, , x] > 5)))
 })
