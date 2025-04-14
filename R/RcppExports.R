@@ -101,11 +101,35 @@ cpp_slicena_int <- function(x, mis_val) {
     .Call(`_cubeStats_cpp_slicena_int`, x, mis_val)
 }
 
-cpp_tubemean_int <- function(x, mis_val) {
-    .Call(`_cubeStats_cpp_tubemean_int`, x, mis_val)
+cpp_tubemean_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_tubemean_int`, x, na_rm, mis_val)
 }
 
 cpp_tubemean_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_tubemean_num`, x, na_rm)
+}
+
+cpp_tubemax_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_tubemax_int`, x, na_rm, mis_val)
+}
+
+cpp_tubemax_num <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_tubemax_num`, x, na_rm)
+}
+
+cpp_tubemin_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_tubemin_int`, x, na_rm, mis_val)
+}
+
+cpp_tubemin_num <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_tubemin_num`, x, na_rm)
+}
+
+cpp_tubemean_int2 <- function(x, mis_val) {
+    .Call(`_cubeStats_cpp_tubemean_int2`, x, mis_val)
+}
+
+cpp_tubemean_num2 <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_tubemean_num2`, x, na_rm)
 }
 

@@ -8,7 +8,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Template function to compute by slice
 // [[RCPP::export]]
-//template <typename T>
 template <typename T, typename Func>
 Rcpp::NumericVector cpp_slicefun(const arma::Cube<T>& x, 
                                  bool na_rm, 
@@ -70,13 +69,11 @@ Rcpp::NumericVector cpp_slicefun(const arma::Cube<T>& x,
 Rcpp::NumericVector cpp_slicemean_int(const arma::Cube<int>& x, 
                                       bool na_rm, 
                                       double mis_val) {
- // return cpp_slicefun(x, na_rm, arma::mean, true, mis_val);
  return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::mean(v); }, true, mis_val);
 }
 
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicemean_num(const arma::Cube<double>& x, bool na_rm) {
-  //return cpp_slicefun(x, na_rm, arma::mean, true);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::mean(v); }, true);
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -85,14 +82,12 @@ Rcpp::NumericVector cpp_slicemean_num(const arma::Cube<double>& x, bool na_rm) {
 Rcpp::NumericVector cpp_slicemax_int(const arma::Cube<int>& x,
                                       bool na_rm,
                                       double mis_val) {
- // return cpp_slicefun(x, na_rm, arma::max, false, mis_val);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::max(v); }, 
                       true, mis_val, false);
 }
 
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicemax_num(const arma::Cube<double>& x, bool na_rm) {
-  //return cpp_slicefun(x, na_rm, arma::max, false);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::max(v); }, true);
 }
 
@@ -102,14 +97,12 @@ Rcpp::NumericVector cpp_slicemax_num(const arma::Cube<double>& x, bool na_rm) {
 Rcpp::NumericVector cpp_slicemin_int(const arma::Cube<int>& x,
                                      bool na_rm,
                                      double mis_val) {
- // return cpp_slicefun(x, na_rm, arma::min, false, mis_val);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::min(v); }, 
                       true, mis_val, false);
 }
 
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicemin_num(const arma::Cube<double>& x, bool na_rm) {
-  //return cpp_slicefun(x, na_rm, arma::min, false);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::min(v); }, true);
 }
 /////////////////////////////////////////////////////////////////////////////////
@@ -121,14 +114,12 @@ Rcpp::NumericVector cpp_slicemin_num(const arma::Cube<double>& x, bool na_rm) {
 Rcpp::NumericVector cpp_slicemedian_int(const arma::Cube<int>& x,
                                         bool na_rm,
                                         double mis_val) {
-  //return cpp_slicefun(x, na_rm, arma::median, true, mis_val);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::median(v); }, true, mis_val);
 }
 
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicemedian_num(const arma::Cube<double>& x,
                                         bool na_rm) {
- // return cpp_slicefun(x, na_rm, arma::median, true);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::median(v); }, true);
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -140,14 +131,12 @@ Rcpp::NumericVector cpp_slicemedian_num(const arma::Cube<double>& x,
 Rcpp::NumericVector cpp_slicesum_int(const arma::Cube<int>& x,
                                         bool na_rm,
                                         double mis_val) {
-  //return cpp_slicefun(x, na_rm, arma::sum, true, mis_val);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::sum(v); }, true, mis_val);
 }
 
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicesum_num(const arma::Cube<double>& x, 
                                         bool na_rm) {
- // return cpp_slicefun(x, na_rm, arma::sum, true);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::sum(v); }, true);
 }
 /////////////////////////////////////////////////////////////////////////////////
@@ -158,14 +147,12 @@ Rcpp::NumericVector cpp_slicesum_num(const arma::Cube<double>& x,
 Rcpp::NumericVector cpp_slicesd_int(const arma::Cube<int>& x,
                                      bool na_rm,
                                      double mis_val) {
-  //return cpp_slicefun(x, na_rm, arma::sum, true, mis_val);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::stddev(v); }, true, mis_val);
 }
 
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicesd_num(const arma::Cube<double>& x, 
                                      bool na_rm) {
-  // return cpp_slicefun(x, na_rm, arma::sum, true);
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::stddev(v); }, true);
 }
 
