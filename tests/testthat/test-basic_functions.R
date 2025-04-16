@@ -1,8 +1,9 @@
 
 # create a simple matrix to test ---------------
-test_mat <- array(1:12, c(5, 5, 5))
+test_mat <- array(1:12L, c(5, 5, 5))
 test_mat_int <- test_mat
 mode(test_mat) <- "numeric"
+mode(test_mat_int) <- "integer"
 
 # Create a matrix where the first layer is all NA's
 test_mat_na_1 <- test_mat      
@@ -19,6 +20,10 @@ flat_mat_na <- test_mat_na
 dim(flat_mat_na) <- c(25, 5) 
 flat_mat_na_int <- test_mat_na_int
 dim(flat_mat_na_int) <- c(25, 5) 
+flat_mat_int <- test_mat_int
+dim(flat_mat_int) <- c(25, 5)
+flat_mat_num <- test_mat
+dim(flat_mat_num) <- c(25, 5)
 
 # SliceMean ----------------------------------------------
 test_that("sliceMean works", {
@@ -146,3 +151,35 @@ test_that("sliceAllNA works", {
                ifelse(sapply(1:5, function(x) sum(is.na(test_mat_na_1[, , x]))) == 25,
                       1, 0))
 })
+
+
+# TubeMean ------------
+test_that("tubeMean works", {
+  expect_equal(tubeMean(test_mat_int), rowMeans2(flat_mat_int))
+  expect_equal(tubeMean(test_mat), rowMeans2(flat_mat_num))
+  expect_equal(tubeMean(test_mat_na_int), rowMeans2(flat_mat_na_int))
+  expect_equal(tubeMean(test_mat_na_int, na.rm = TRUE), rowMeans2(flat_mat_na_int, na.rm = TRUE))
+  expect_equal(tubeMean(test_mat_na), rowMeans2(flat_mat_na))
+  expect_equal(tubeMean(test_mat_na, na.rm = TRUE), rowMeans2(flat_mat_na, na.rm = TRUE))
+})
+
+# TubeMax ------------
+test_that("tubeMax works", {
+  expect_equal(tubeMax(test_mat_int), rowMaxs(flat_mat_int))
+  expect_equal(tubeMax(test_mat), rowMaxs(flat_mat_num))
+  expect_equal(tubeMax(test_mat_na_int), rowMaxs(flat_mat_na_int))
+  expect_equal(tubeMax(test_mat_na_int, na.rm = TRUE), rowMaxs(flat_mat_na_int, na.rm = TRUE))
+  expect_equal(tubeMax(test_mat_na), rowMaxs(flat_mat_na))
+  expect_equal(tubeMax(test_mat_na, na.rm = TRUE), rowMaxs(flat_mat_na, na.rm = TRUE))
+})
+
+# TubeMin ------------
+test_that("tubeMin works", {
+  expect_equal(tubeMin(test_mat_int), rowMins(flat_mat_int))
+  expect_equal(tubeMin(test_mat), rowMins(flat_mat_num))
+  expect_equal(tubeMin(test_mat_na_int), rowMins(flat_mat_na_int))
+  expect_equal(tubeMin(test_mat_na_int, na.rm = TRUE), rowMins(flat_mat_na_int, na.rm = TRUE))
+  expect_equal(tubeMin(test_mat_na), rowMins(flat_mat_na))
+  expect_equal(tubeMin(test_mat_na, na.rm = TRUE), rowMins(flat_mat_na, na.rm = TRUE))
+})
+

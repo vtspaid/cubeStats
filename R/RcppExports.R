@@ -101,6 +101,14 @@ cpp_slicena_int <- function(x, mis_val) {
     .Call(`_cubeStats_cpp_slicena_int`, x, mis_val)
 }
 
+test_int <- function(x, mis_val) {
+    .Call(`_cubeStats_test_int`, x, mis_val)
+}
+
+test_int2 <- function(x, mis_val) {
+    .Call(`_cubeStats_test_int2`, x, mis_val)
+}
+
 cpp_tubemean_int <- function(x, na_rm, mis_val) {
     .Call(`_cubeStats_cpp_tubemean_int`, x, na_rm, mis_val)
 }

@@ -19,46 +19,77 @@ Rcpp::NumericVector cpp_slicefun(const arma::Cube<T>& x,
   int ns = x.n_slices;
   Rcpp::NumericVector ans(ns);
   
-  //get a uvec containing all indices in a slice
-  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(0).n_elem - 1);
-  int all_length = all.n_elem;
   
   // Precompute whether type is integer
   constexpr bool is_int = std::is_same<T, int>::value;
   
   T mis = static_cast<T>(mis_val);
   
+  
+  arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(0).n_elem - 1);
+  
+  
   for (int i = 0; i < ns; i++) {
     arma::uvec sub;
     if (is_int) { 
       // Handle integer case
-      sub = arma::find(x.slice(i) != mis);
+      //sub = arma::find(x.slice(i) != mis);
+      arma::Col<T> vals = arma::vectorise(x.slice(i));
       
-      // If not removing NAs but missing values exist, return NA
-      if (na_rm == false && sub.n_elem != all_length) {
+      bool has_missing = arma::any(vals == mis);
+      
+      if (!na_rm) {
+        bool has_missing = arma::any(vals == mis);
+        if (has_missing) {
         ans[i] = NA_REAL;
         continue;
-      } else if (sub.n_elem == 0) {
-        ans[i] = NA_REAL;
-      } else if (conv_int){
-      ans[i] = armaFunc(arma::conv_to<arma::colvec>::from(x.slice(i).elem(sub)));
+        } else {
+        // Use all values
+        if (conv_int) {
+        arma::vec vals_conv = arma::conv_to<arma::vec>::from(vals);
+          ans[i] = armaFunc(vals_conv);
+        } else {
+          ans[i] = armaFunc(vals);
+        }
+        }
+        
       } else {
-        ans[i] = armaFunc(x.slice(i).elem(sub));
+        // Remove missing values
+        sub = arma::find(vals != mis);
+        if (sub.n_elem == 0) {
+          ans[i] = NA_REAL;
+        } else {
+          if (conv_int) {
+            arma::vec vals_conv = arma::conv_to<arma::vec>::from(vals);
+            ans[i] = armaFunc(vals_conv.elem(sub));
+          } else {
+            ans[i] = armaFunc(vals.elem(sub));
+          }
+        }
       }
+
       
     } else { 
-      if (na_rm) {
+      //get a uvec containing all indices in a slice
+      
+      if (!na_rm) {
+        bool has_missing = x.slice(i).has_nan();
+        if (has_missing) {
+          ans[i] = NA_REAL;
+          continue;
+        } else {
+            ans[i] = armaFunc(x.slice(i).elem(all));
+        }
+      } else {
         sub = auto_na ? arma::find_finite(x.slice(i)) : all;
-      } else {
-        sub = all;
-      } 
-      if (sub.n_elem == 0) {
-        ans[i] = NA_REAL;
-      } else {
-      ans[i] = armaFunc(x.slice(i).elem(sub));
+        if (sub.n_elem == 0) {
+          ans[i] = NA_REAL;
+        } else {
+          ans[i] = armaFunc(x.slice(i).elem(sub));
+        }
       }
-    }
 
+  }
   }
   return ans;
 }
@@ -444,3 +475,35 @@ Rcpp::NumericVector cpp_slicena_int(const arma::Cube<int>& x, double mis_val) {
   return ans;
 }
 ////////////////////////////////////////////////////////////////////////////////
+
+// [[Rcpp::export]]
+Rcpp::NumericVector test_int(const arma::Cube<int>& x, double mis_val) {
+  int ns = x.n_slices;
+  int tot = x.slice(0).n_elem;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    arma::ivec vals = x.slice(i);
+    if (arma::any(vals == mis_val)) {
+      ans[i] = NA_REAL;
+    } else {
+      ans[i] = 1;
+    }
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector test_int2(const arma::Cube<int>& x, double mis_val) {
+  int ns = x.n_slices;
+  int tot = x.slice(0).n_elem;
+  Rcpp::NumericVector ans(ns);
+  for (int i = 0; i < ns; i++) {
+    arma::ivec vals = arma::vectorise(x.slice(i));
+    if (arma::any(vals == mis_val)) {
+      ans[i] = NA_REAL;
+    } else {
+      ans[i] = 1;
+    }
+  }
+    return ans;
+}

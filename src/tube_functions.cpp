@@ -72,7 +72,7 @@ Rcpp::NumericVector cpp_tubefun(const arma::Cube<T>& x,
             index++;
             continue;
           } 
-          ans[index] = arma::mean(tube.elem(locs));
+          ans[index] = armaFunc(tube.elem(locs));
           index++;
         } else {
           if (x.tube(i, j).has_nonfinite()) {
@@ -81,7 +81,7 @@ Rcpp::NumericVector cpp_tubefun(const arma::Cube<T>& x,
             continue;
           }
           arma::Col<T> tube = x.tube(i, j);
-          ans[index] = arma::mean(tube);
+          ans[index] = armaFunc(tube);
           index++;
         }
         
