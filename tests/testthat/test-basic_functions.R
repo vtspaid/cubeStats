@@ -183,3 +183,13 @@ test_that("tubeMin works", {
   expect_equal(tubeMin(test_mat_na, na.rm = TRUE), rowMins(flat_mat_na, na.rm = TRUE))
 })
 
+
+# TubeSD ------------
+test_that("tubeSd works", {
+  expect_equal(tubeSd(test_mat_int), rowSds(flat_mat_int))
+  expect_equal(tubeSd(test_mat), rowSds(flat_mat_num))
+  expect_equal(tubeSd(test_mat_na_int), rowSds(flat_mat_na_int))
+  expect_equal(tubeSd(test_mat_na_int, na.rm = TRUE), rowSds(flat_mat_na_int, na.rm = TRUE))
+  expect_equal(tubeSd(test_mat_na), rowSds(flat_mat_na))
+  expect_equal(tubeSd(test_mat_na, na.rm = TRUE), rowSds(flat_mat_na, na.rm = TRUE))
+})

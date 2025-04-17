@@ -113,10 +113,6 @@ tube_test <- function(x, na_rm = FALSE, mis_val = -2147483648) {
     .Call(`_cubeStats_tube_test`, x, na_rm, mis_val)
 }
 
-tube_test_ai <- function(x, na_rm = FALSE, mis_val = -2147483648) {
-    .Call(`_cubeStats_tube_test_ai`, x, na_rm, mis_val)
-}
-
 cpp_tubemean_int <- function(x, na_rm, mis_val) {
     .Call(`_cubeStats_cpp_tubemean_int`, x, na_rm, mis_val)
 }
@@ -141,11 +137,11 @@ cpp_tubemin_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_tubemin_num`, x, na_rm)
 }
 
-cpp_tubemean_int2 <- function(x, mis_val) {
-    .Call(`_cubeStats_cpp_tubemean_int2`, x, mis_val)
+cpp_tubesd_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_tubesd_int`, x, na_rm, mis_val)
 }
 
-cpp_tubemean_num2 <- function(x, na_rm) {
-    .Call(`_cubeStats_cpp_tubemean_num2`, x, na_rm)
+cpp_tubesd_num <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_tubesd_num`, x, na_rm)
 }
 

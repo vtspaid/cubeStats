@@ -131,48 +131,8 @@ for (int j = 0; j < nc; j++) {
 }
 return ans;
 }
+////////////////////////////////////////////////////////////////////////////////
 
-
-// [[Rcpp::export]]
-Rcpp::NumericVector tube_test_ai(const arma::Cube<int>& x, 
-                              bool na_rm = false, 
-                              double mis_val = -2147483648) {
-  const int nr = x.n_rows; 
-  const int nc = x.n_cols;
-  const int ns = x.n_slices;
-  const int tube_len = ns;
-  
-  Rcpp::NumericVector ans(nr * nc);
-  int idx = 0;
-  
-  arma::ivec tube(tube_len);          // reuse buffer
-  arma::vec tube_conv(tube_len);      // reuse conversion buffer
-  
-  for (int j = 0; j < nc; ++j) {
-    for (int i = 0; i < nr; ++i) {
-      tube = x.tube(i, j);
-      
-      if (!na_rm) {
-        // No NA removal: convert whole tube
-        for (int k = 0; k < tube_len; ++k) {
-          tube_conv[k] = static_cast<double>(tube[k]);
-        }
-        ans[idx++] = arma::mean(tube_conv);
-      } else {
-        // Remove "missing" values
-        int count = 0;
-        for (int k = 0; k < tube_len; ++k) {
-          if (tube[k] != static_cast<int>(mis_val)) {
-            tube_conv[count++] = static_cast<double>(tube[k]);
-          }
-        }
-        ans[idx++] = (count == 0) ? NA_REAL : arma::mean(tube_conv.head(count));
-      }
-    }
-  }
-  
-  return ans;
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Mean
@@ -212,7 +172,7 @@ Rcpp::NumericVector cpp_tubemax_num(const arma::Cube<double>& x,
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-// Max
+// Min
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_tubemin_int(const arma::Cube<int>& x, 
                                     bool na_rm, 
@@ -229,59 +189,77 @@ Rcpp::NumericVector cpp_tubemin_num(const arma::Cube<double>& x,
 }
 ////////////////////////////////////////////////////////////////////////////////
 
-
+////////////////////////////////////////////////////////////////////////////////
+// sd
 // [[Rcpp::export]]
-Rcpp::NumericVector cpp_tubemean_int2(const arma::Cube<int>& x, double mis_val) {
-  int nr = x.n_rows; 
-  int nc = x.n_cols;
-  Rcpp::NumericVector ans(nr * nc);
-  int index = 0;
-  for (int j = 0; j < nc; j++) {
-    for (int i = 0; i < nr; i++) {
-      arma::ivec tube = x.tube(i, j);
-      arma::uvec locs = arma::find(tube != mis_val);
-      if (locs.is_empty()) {
-        ans[index] = NA_REAL;
-        index++;
-        continue;
-      } 
-      ans[index] = arma::mean(arma::conv_to<arma::colvec>::from(tube.elem(locs)));
-      index++;
-    }
-  }
-  return ans;
+Rcpp::NumericVector cpp_tubesd_int(const arma::Cube<int>& x, 
+                                    bool na_rm, 
+                                    double mis_val) {
+  return cpp_tubefun(x, na_rm = na_rm, [](const auto& v) { return arma::stddev(v); }, 
+                     true, mis_val, true);
 }
 
-
 // [[Rcpp::export]]
-Rcpp::NumericVector cpp_tubemean_num2(const arma::Cube<double>& x, bool na_rm) {
-  int nr = x.n_rows; 
-  int nc = x.n_cols;
-  Rcpp::NumericVector ans(nr * nc);
-  int index = 0;
-  for (int j = 0; j < nc; j++) {
-    for (int i = 0; i < nr; i++) {
-      if (na_rm == true) {
-        arma::vec tube = x.tube(i, j);
-        arma::uvec locs = arma::find_finite(tube);
-        if (locs.is_empty()) {
-          ans[index] = NA_REAL;
-          index++;
-          continue;
-        } 
-        ans[index] = arma::mean(tube.elem(locs));
-        index++;
-      } else {
-        if (x.tube(i, j).has_nonfinite()) {
-          ans[index] = NA_REAL;
-          index++;
-          continue;
-        }
-        arma::vec tube = x.tube(i, j);
-        ans[index] = arma::mean(tube);
-        index++;
-      }
-    }
-  }
-  return ans;
+Rcpp::NumericVector cpp_tubesd_num(const arma::Cube<double>& x, 
+                                    bool na_rm) {
+  return cpp_tubefun(x, na_rm = na_rm, [](const auto& v) { return arma::stddev(v); }, 
+                     true, 0, true);
 }
+////////////////////////////////////////////////////////////////////////////////
+
+
+// // [[Rcpp::export]]
+// Rcpp::NumericVector cpp_tubemean_int2(const arma::Cube<int>& x, double mis_val) {
+//   int nr = x.n_rows; 
+//   int nc = x.n_cols;
+//   Rcpp::NumericVector ans(nr * nc);
+//   int index = 0;
+//   for (int j = 0; j < nc; j++) {
+//     for (int i = 0; i < nr; i++) {
+//       arma::ivec tube = x.tube(i, j);
+//       arma::uvec locs = arma::find(tube != mis_val);
+//       if (locs.is_empty()) {
+//         ans[index] = NA_REAL;
+//         index++;
+//         continue;
+//       } 
+//       ans[index] = arma::mean(arma::conv_to<arma::colvec>::from(tube.elem(locs)));
+//       index++;
+//     }
+//   }
+//   return ans;
+// }
+// 
+// 
+// // [[Rcpp::export]]
+// Rcpp::NumericVector cpp_tubemean_num2(const arma::Cube<double>& x, bool na_rm) {
+//   int nr = x.n_rows; 
+//   int nc = x.n_cols;
+//   Rcpp::NumericVector ans(nr * nc);
+//   int index = 0;
+//   for (int j = 0; j < nc; j++) {
+//     for (int i = 0; i < nr; i++) {
+//       if (na_rm == true) {
+//         arma::vec tube = x.tube(i, j);
+//         arma::uvec locs = arma::find_finite(tube);
+//         if (locs.is_empty()) {
+//           ans[index] = NA_REAL;
+//           index++;
+//           continue;
+//         } 
+//         ans[index] = arma::mean(tube.elem(locs));
+//         index++;
+//       } else {
+//         if (x.tube(i, j).has_nonfinite()) {
+//           ans[index] = NA_REAL;
+//           index++;
+//           continue;
+//         }
+//         arma::vec tube = x.tube(i, j);
+//         ans[index] = arma::mean(tube);
+//         index++;
+//       }
+//     }
+//   }
+//   return ans;
+// }

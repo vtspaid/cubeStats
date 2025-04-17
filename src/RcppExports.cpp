@@ -365,19 +365,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// tube_test_ai
-Rcpp::NumericVector tube_test_ai(const arma::Cube<int>& x, bool na_rm, double mis_val);
-RcppExport SEXP _cubeStats_tube_test_ai(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
-    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
-    rcpp_result_gen = Rcpp::wrap(tube_test_ai(x, na_rm, mis_val));
-    return rcpp_result_gen;
-END_RCPP
-}
 // cpp_tubemean_int
 Rcpp::NumericVector cpp_tubemean_int(const arma::Cube<int>& x, bool na_rm, double mis_val);
 RcppExport SEXP _cubeStats_cpp_tubemean_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
@@ -453,27 +440,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// cpp_tubemean_int2
-Rcpp::NumericVector cpp_tubemean_int2(const arma::Cube<int>& x, double mis_val);
-RcppExport SEXP _cubeStats_cpp_tubemean_int2(SEXP xSEXP, SEXP mis_valSEXP) {
+// cpp_tubesd_int
+Rcpp::NumericVector cpp_tubesd_int(const arma::Cube<int>& x, bool na_rm, double mis_val);
+RcppExport SEXP _cubeStats_cpp_tubesd_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
     Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_tubemean_int2(x, mis_val));
+    rcpp_result_gen = Rcpp::wrap(cpp_tubesd_int(x, na_rm, mis_val));
     return rcpp_result_gen;
 END_RCPP
 }
-// cpp_tubemean_num2
-Rcpp::NumericVector cpp_tubemean_num2(const arma::Cube<double>& x, bool na_rm);
-RcppExport SEXP _cubeStats_cpp_tubemean_num2(SEXP xSEXP, SEXP na_rmSEXP) {
+// cpp_tubesd_num
+Rcpp::NumericVector cpp_tubesd_num(const arma::Cube<double>& x, bool na_rm);
+RcppExport SEXP _cubeStats_cpp_tubesd_num(SEXP xSEXP, SEXP na_rmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
     Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_tubemean_num2(x, na_rm));
+    rcpp_result_gen = Rcpp::wrap(cpp_tubesd_num(x, na_rm));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -507,15 +495,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_test_int", (DL_FUNC) &_cubeStats_test_int, 2},
     {"_cubeStats_test_int2", (DL_FUNC) &_cubeStats_test_int2, 2},
     {"_cubeStats_tube_test", (DL_FUNC) &_cubeStats_tube_test, 3},
-    {"_cubeStats_tube_test_ai", (DL_FUNC) &_cubeStats_tube_test_ai, 3},
     {"_cubeStats_cpp_tubemean_int", (DL_FUNC) &_cubeStats_cpp_tubemean_int, 3},
     {"_cubeStats_cpp_tubemean_num", (DL_FUNC) &_cubeStats_cpp_tubemean_num, 2},
     {"_cubeStats_cpp_tubemax_int", (DL_FUNC) &_cubeStats_cpp_tubemax_int, 3},
     {"_cubeStats_cpp_tubemax_num", (DL_FUNC) &_cubeStats_cpp_tubemax_num, 2},
     {"_cubeStats_cpp_tubemin_int", (DL_FUNC) &_cubeStats_cpp_tubemin_int, 3},
     {"_cubeStats_cpp_tubemin_num", (DL_FUNC) &_cubeStats_cpp_tubemin_num, 2},
-    {"_cubeStats_cpp_tubemean_int2", (DL_FUNC) &_cubeStats_cpp_tubemean_int2, 2},
-    {"_cubeStats_cpp_tubemean_num2", (DL_FUNC) &_cubeStats_cpp_tubemean_num2, 2},
+    {"_cubeStats_cpp_tubesd_int", (DL_FUNC) &_cubeStats_cpp_tubesd_int, 3},
+    {"_cubeStats_cpp_tubesd_num", (DL_FUNC) &_cubeStats_cpp_tubesd_num, 2},
     {NULL, NULL, 0}
 };
 
