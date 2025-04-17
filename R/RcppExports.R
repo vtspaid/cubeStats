@@ -109,6 +109,14 @@ test_int2 <- function(x, mis_val) {
     .Call(`_cubeStats_test_int2`, x, mis_val)
 }
 
+tube_test <- function(x, na_rm = FALSE, mis_val = -2147483648) {
+    .Call(`_cubeStats_tube_test`, x, na_rm, mis_val)
+}
+
+tube_test_ai <- function(x, na_rm = FALSE, mis_val = -2147483648) {
+    .Call(`_cubeStats_tube_test_ai`, x, na_rm, mis_val)
+}
+
 cpp_tubemean_int <- function(x, na_rm, mis_val) {
     .Call(`_cubeStats_cpp_tubemean_int`, x, na_rm, mis_val)
 }

@@ -11,7 +11,6 @@
 template <typename T, typename Func>
 Rcpp::NumericVector cpp_slicefun(const arma::Cube<T>& x, 
                                  bool na_rm, 
-                                // double (*armaFunc)(const arma::vec&),
                                  Func armaFunc,
                                  bool auto_na,
                                  double mis_val = -2147483648,
@@ -19,7 +18,7 @@ Rcpp::NumericVector cpp_slicefun(const arma::Cube<T>& x,
   int ns = x.n_slices;
   Rcpp::NumericVector ans(ns);
   
-  
+  arma::Col<T> vals(x.slice(0).n_elem);
   // Precompute whether type is integer
   constexpr bool is_int = std::is_same<T, int>::value;
   
@@ -27,16 +26,13 @@ Rcpp::NumericVector cpp_slicefun(const arma::Cube<T>& x,
   
   
   arma::uvec all = arma::regspace<arma::uvec>(0, x.slice(0).n_elem - 1);
-  
-  
+  arma::uvec sub;
   for (int i = 0; i < ns; i++) {
-    arma::uvec sub;
     if (is_int) { 
       // Handle integer case
-      //sub = arma::find(x.slice(i) != mis);
-      arma::Col<T> vals = arma::vectorise(x.slice(i));
-      
-      bool has_missing = arma::any(vals == mis);
+
+      vals = arma::vectorise(x.slice(i));
+
       
       if (!na_rm) {
         bool has_missing = arma::any(vals == mis);
@@ -46,22 +42,29 @@ Rcpp::NumericVector cpp_slicefun(const arma::Cube<T>& x,
         } else {
         // Use all values
         if (conv_int) {
-        arma::vec vals_conv = arma::conv_to<arma::vec>::from(vals);
-          ans[i] = armaFunc(vals_conv);
+          ans[i] = armaFunc(arma::conv_to<arma::vec>::from(vals));
         } else {
           ans[i] = armaFunc(vals);
         }
         }
         
       } else {
+        if (!arma::any(vals == mis)) {
+          if (conv_int) {
+            ans[i] = armaFunc(arma::conv_to<arma::vec>::from(vals));
+            continue;
+          } else {
+            ans[i] = armaFunc(vals);
+            continue;
+          }
+        }
         // Remove missing values
         sub = arma::find(vals != mis);
         if (sub.n_elem == 0) {
           ans[i] = NA_REAL;
         } else {
           if (conv_int) {
-            arma::vec vals_conv = arma::conv_to<arma::vec>::from(vals);
-            ans[i] = armaFunc(vals_conv.elem(sub));
+            ans[i] = armaFunc(arma::conv_to<arma::vec>::from(vals.elem(sub)));
           } else {
             ans[i] = armaFunc(vals.elem(sub));
           }

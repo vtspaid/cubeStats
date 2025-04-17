@@ -352,6 +352,32 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// tube_test
+Rcpp::NumericVector tube_test(const arma::Cube<int>& x, bool na_rm, double mis_val);
+RcppExport SEXP _cubeStats_tube_test(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(tube_test(x, na_rm, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// tube_test_ai
+Rcpp::NumericVector tube_test_ai(const arma::Cube<int>& x, bool na_rm, double mis_val);
+RcppExport SEXP _cubeStats_tube_test_ai(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(tube_test_ai(x, na_rm, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cpp_tubemean_int
 Rcpp::NumericVector cpp_tubemean_int(const arma::Cube<int>& x, bool na_rm, double mis_val);
 RcppExport SEXP _cubeStats_cpp_tubemean_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
@@ -480,6 +506,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_slicena_int", (DL_FUNC) &_cubeStats_cpp_slicena_int, 2},
     {"_cubeStats_test_int", (DL_FUNC) &_cubeStats_test_int, 2},
     {"_cubeStats_test_int2", (DL_FUNC) &_cubeStats_test_int2, 2},
+    {"_cubeStats_tube_test", (DL_FUNC) &_cubeStats_tube_test, 3},
+    {"_cubeStats_tube_test_ai", (DL_FUNC) &_cubeStats_tube_test_ai, 3},
     {"_cubeStats_cpp_tubemean_int", (DL_FUNC) &_cubeStats_cpp_tubemean_int, 3},
     {"_cubeStats_cpp_tubemean_num", (DL_FUNC) &_cubeStats_cpp_tubemean_num, 2},
     {"_cubeStats_cpp_tubemax_int", (DL_FUNC) &_cubeStats_cpp_tubemax_int, 3},
