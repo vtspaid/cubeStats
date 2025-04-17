@@ -208,6 +208,24 @@ Rcpp::NumericVector cpp_tubesd_num(const arma::Cube<double>& x,
 ////////////////////////////////////////////////////////////////////////////////
 
 
+////////////////////////////////////////////////////////////////////////////////
+// sum
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubesum_int(const arma::Cube<int>& x, 
+                                   bool na_rm, 
+                                   double mis_val) {
+  return cpp_tubefun(x, na_rm = na_rm, [](const auto& v) { return arma::sum(v); }, 
+                     true, mis_val, true);
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubesum_num(const arma::Cube<double>& x, 
+                                   bool na_rm) {
+  return cpp_tubefun(x, na_rm = na_rm, [](const auto& v) { return arma::sum(v); }, 
+                     true, 0, true);
+}
+////////////////////////////////////////////////////////////////////////////////
+
 // // [[Rcpp::export]]
 // Rcpp::NumericVector cpp_tubemean_int2(const arma::Cube<int>& x, double mis_val) {
 //   int nr = x.n_rows; 

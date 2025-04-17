@@ -145,3 +145,11 @@ cpp_tubesd_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_tubesd_num`, x, na_rm)
 }
 
+cpp_tubesum_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_tubesum_int`, x, na_rm, mis_val)
+}
+
+cpp_tubesum_num <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_tubesum_num`, x, na_rm)
+}
+
