@@ -490,6 +490,116 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_tubegreater_int
+Rcpp::NumericVector cpp_tubegreater_int(const arma::Cube<int>& x, bool na_rm, double value, double mis_val);
+RcppExport SEXP _cubeStats_cpp_tubegreater_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubegreater_int(x, na_rm, value, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_tubegreater_num
+Rcpp::NumericVector cpp_tubegreater_num(const arma::Cube<double>& x, bool na_rm, double value);
+RcppExport SEXP _cubeStats_cpp_tubegreater_num(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubegreater_num(x, na_rm, value));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_tubeless_int
+Rcpp::NumericVector cpp_tubeless_int(const arma::Cube<int>& x, bool na_rm, double value, double mis_val);
+RcppExport SEXP _cubeStats_cpp_tubeless_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubeless_int(x, na_rm, value, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_tubeless_num
+Rcpp::NumericVector cpp_tubeless_num(const arma::Cube<double>& x, bool na_rm, double value);
+RcppExport SEXP _cubeStats_cpp_tubeless_num(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubeless_num(x, na_rm, value));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_tubeequal_int
+Rcpp::NumericVector cpp_tubeequal_int(const arma::Cube<int>& x, bool na_rm, double value, double mis_val);
+RcppExport SEXP _cubeStats_cpp_tubeequal_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubeequal_int(x, na_rm, value, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_tubeequal_num
+Rcpp::NumericVector cpp_tubeequal_num(const arma::Cube<double>& x, bool na_rm, double value);
+RcppExport SEXP _cubeStats_cpp_tubeequal_num(SEXP xSEXP, SEXP na_rmSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubeequal_num(x, na_rm, value));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_tuberange_int
+Rcpp::NumericVector cpp_tuberange_int(const arma::Cube<int>& x, bool na_rm, double value1, double value2, double mis_val);
+RcppExport SEXP _cubeStats_cpp_tuberange_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP value1SEXP, SEXP value2SEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value1(value1SEXP);
+    Rcpp::traits::input_parameter< double >::type value2(value2SEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tuberange_int(x, na_rm, value1, value2, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_tuberange_num
+Rcpp::NumericVector cpp_tuberange_num(const arma::Cube<double>& x, bool na_rm, double value1, double value2);
+RcppExport SEXP _cubeStats_cpp_tuberange_num(SEXP xSEXP, SEXP na_rmSEXP, SEXP value1SEXP, SEXP value2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type value1(value1SEXP);
+    Rcpp::traits::input_parameter< double >::type value2(value2SEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tuberange_num(x, na_rm, value1, value2));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_slicemean_int", (DL_FUNC) &_cubeStats_cpp_slicemean_int, 3},
@@ -530,6 +640,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_tubesd_num", (DL_FUNC) &_cubeStats_cpp_tubesd_num, 2},
     {"_cubeStats_cpp_tubesum_int", (DL_FUNC) &_cubeStats_cpp_tubesum_int, 3},
     {"_cubeStats_cpp_tubesum_num", (DL_FUNC) &_cubeStats_cpp_tubesum_num, 2},
+    {"_cubeStats_cpp_tubegreater_int", (DL_FUNC) &_cubeStats_cpp_tubegreater_int, 4},
+    {"_cubeStats_cpp_tubegreater_num", (DL_FUNC) &_cubeStats_cpp_tubegreater_num, 3},
+    {"_cubeStats_cpp_tubeless_int", (DL_FUNC) &_cubeStats_cpp_tubeless_int, 4},
+    {"_cubeStats_cpp_tubeless_num", (DL_FUNC) &_cubeStats_cpp_tubeless_num, 3},
+    {"_cubeStats_cpp_tubeequal_int", (DL_FUNC) &_cubeStats_cpp_tubeequal_int, 4},
+    {"_cubeStats_cpp_tubeequal_num", (DL_FUNC) &_cubeStats_cpp_tubeequal_num, 3},
+    {"_cubeStats_cpp_tuberange_int", (DL_FUNC) &_cubeStats_cpp_tuberange_int, 5},
+    {"_cubeStats_cpp_tuberange_num", (DL_FUNC) &_cubeStats_cpp_tuberange_num, 4},
     {NULL, NULL, 0}
 };
 

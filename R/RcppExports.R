@@ -153,3 +153,35 @@ cpp_tubesum_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_tubesum_num`, x, na_rm)
 }
 
+cpp_tubegreater_int <- function(x, na_rm, value, mis_val) {
+    .Call(`_cubeStats_cpp_tubegreater_int`, x, na_rm, value, mis_val)
+}
+
+cpp_tubegreater_num <- function(x, na_rm, value) {
+    .Call(`_cubeStats_cpp_tubegreater_num`, x, na_rm, value)
+}
+
+cpp_tubeless_int <- function(x, na_rm, value, mis_val) {
+    .Call(`_cubeStats_cpp_tubeless_int`, x, na_rm, value, mis_val)
+}
+
+cpp_tubeless_num <- function(x, na_rm, value) {
+    .Call(`_cubeStats_cpp_tubeless_num`, x, na_rm, value)
+}
+
+cpp_tubeequal_int <- function(x, na_rm, value, mis_val) {
+    .Call(`_cubeStats_cpp_tubeequal_int`, x, na_rm, value, mis_val)
+}
+
+cpp_tubeequal_num <- function(x, na_rm, value) {
+    .Call(`_cubeStats_cpp_tubeequal_num`, x, na_rm, value)
+}
+
+cpp_tuberange_int <- function(x, na_rm, value1, value2, mis_val) {
+    .Call(`_cubeStats_cpp_tuberange_int`, x, na_rm, value1, value2, mis_val)
+}
+
+cpp_tuberange_num <- function(x, na_rm, value1, value2) {
+    .Call(`_cubeStats_cpp_tuberange_num`, x, na_rm, value1, value2)
+}
+

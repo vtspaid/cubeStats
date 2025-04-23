@@ -281,3 +281,256 @@ Rcpp::NumericVector cpp_tubesum_num(const arma::Cube<double>& x,
 //   }
 //   return ans;
 // }
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Evaluation functions
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubegreater_int(const arma::Cube<int>& x,
+                                        bool na_rm,
+                                        double value,
+                                        double mis_val) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int tot = x.n_slices;
+  Rcpp::NumericVector ans(nr* nc);
+  int index = 0;
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      arma::ivec tube = x.tube(i, j);
+      arma::uvec sub = arma::find(tube != mis_val);
+      if (na_rm == true) {
+        arma::uvec greater = arma::find(tube.elem(sub) > value);
+        ans[index++] = greater.n_elem;
+      } else if (na_rm == false) {
+        if (sub.n_elem != tot) {
+          ans[index++] = NA_REAL;
+        } else {
+          arma::uvec greater = arma::find(tube.elem(sub) > value);
+          ans[index++] = greater.n_elem;
+        }
+        
+      }
+    }
+  }
+  return ans;
+}
+    
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubegreater_num(const arma::Cube<double>& x,
+                                        bool na_rm,
+                                        double value) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int tot = x.n_slices;
+  Rcpp::NumericVector ans(nr* nc);
+  int index = 0;
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      arma::vec tube = x.tube(i, j);
+      if (na_rm == true) {
+        arma::uvec greater = arma::find(tube > value);
+        ans[index++] = greater.n_elem;
+      } else {
+        arma::uvec sub = arma::find_finite(tube);
+        if (sub.n_elem != tot) {
+          ans[index++] = NA_REAL;
+          continue;
+        }
+        arma::uvec greater = arma::find(tube > value);
+        ans[index++] = greater.n_elem;
+        
+      }
+    }
+  }
+    return ans;
+}
+
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubeless_int(const arma::Cube<int>& x,
+                                        bool na_rm,
+                                        double value,
+                                        double mis_val) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int tot = x.n_slices;
+  Rcpp::NumericVector ans(nr* nc);
+  int index = 0;
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      arma::ivec tube = x.tube(i, j);
+      arma::uvec sub = arma::find(tube != mis_val);
+      if (na_rm == true) {
+        arma::uvec greater = arma::find(tube.elem(sub) < value);
+        ans[index++] = greater.n_elem;
+      } else if (na_rm == false) {
+        if (sub.n_elem != tot) {
+          ans[index++] = NA_REAL;
+        } else {
+          arma::uvec greater = arma::find(tube.elem(sub) < value);
+          ans[index++] = greater.n_elem;
+        }
+        
+      }
+    }
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubeless_num(const arma::Cube<double>& x,
+                                        bool na_rm,
+                                        double value) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int tot = x.n_slices;
+  Rcpp::NumericVector ans(nr* nc);
+  int index = 0;
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      arma::vec tube = x.tube(i, j);
+      if (na_rm == true) {
+        arma::uvec greater = arma::find(tube < value);
+        ans[index++] = greater.n_elem;
+      } else {
+        arma::uvec sub = arma::find_finite(tube);
+        if (sub.n_elem != tot) {
+          ans[index++] = NA_REAL;
+          continue;
+        }
+        arma::uvec greater = arma::find(tube < value);
+        ans[index++] = greater.n_elem;
+        
+      }
+    }
+  }
+  return ans;
+}
+
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubeequal_int(const arma::Cube<int>& x,
+                                     bool na_rm,
+                                     double value,
+                                     double mis_val) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int tot = x.n_slices;
+  Rcpp::NumericVector ans(nr* nc);
+  int index = 0;
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      arma::ivec tube = x.tube(i, j);
+      arma::uvec sub = arma::find(tube != mis_val);
+      if (na_rm == true) {
+        arma::uvec greater = arma::find(tube.elem(sub) == value);
+        ans[index++] = greater.n_elem;
+      } else if (na_rm == false) {
+        if (sub.n_elem != tot) {
+          ans[index++] = NA_REAL;
+        } else {
+          arma::uvec greater = arma::find(tube.elem(sub) == value);
+          ans[index++] = greater.n_elem;
+        }
+        
+      }
+    }
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubeequal_num(const arma::Cube<double>& x,
+                                     bool na_rm,
+                                     double value) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int tot = x.n_slices;
+  Rcpp::NumericVector ans(nr* nc);
+  int index = 0;
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      arma::vec tube = x.tube(i, j);
+      if (na_rm == true) {
+        arma::uvec greater = arma::find(tube == value);
+        ans[index++] = greater.n_elem;
+      } else {
+        arma::uvec sub = arma::find_finite(tube);
+        if (sub.n_elem != tot) {
+          ans[index++] = NA_REAL;
+          continue;
+        }
+        arma::uvec greater = arma::find(tube == value);
+        ans[index++] = greater.n_elem;
+        
+      }
+    }
+  }
+  return ans;
+}
+
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tuberange_int(const arma::Cube<int>& x,
+                                      bool na_rm,
+                                      double value1,
+                                      double value2,
+                                      double mis_val) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int tot = x.n_slices;
+  Rcpp::NumericVector ans(nr* nc);
+  int index = 0;
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      arma::ivec tube = x.tube(i, j);
+      arma::uvec sub = arma::find(tube != mis_val);
+      if (na_rm == true) {
+        arma::uvec greater = arma::find((tube.elem(sub) > value1) && (tube.elem(sub) < value2));
+        ans[index++] = greater.n_elem;
+      } else if (na_rm == false) {
+        if (sub.n_elem != tot) {
+          ans[index++] = NA_REAL;
+        } else {
+          arma::uvec greater = arma::find((tube.elem(sub) > value1) && (tube.elem(sub) < value2));
+          ans[index++] = greater.n_elem;
+        }
+        
+      }
+    }
+  }
+  return ans;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tuberange_num(const arma::Cube<double>& x,
+                                      bool na_rm,
+                                      double value1,
+                                      double value2) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int tot = x.n_slices;
+  Rcpp::NumericVector ans(nr* nc);
+  int index = 0;
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      arma::vec tube = x.tube(i, j);
+      if (na_rm == true) {
+        arma::uvec greater = arma::find((tube > value1) && (tube < value2));
+        ans[index++] = greater.n_elem;
+      } else {
+        arma::uvec sub = arma::find_finite(tube);
+        if (sub.n_elem != tot) {
+          ans[index++] = NA_REAL;
+          continue;
+        }
+        arma::uvec greater = arma::find((tube > value1) && (tube < value2));
+        ans[index++] = greater.n_elem;
+        
+      }
+    }
+  }
+  return ans;
+}

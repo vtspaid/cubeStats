@@ -192,7 +192,7 @@ sliceEval <- function(x,
 #' @returns A vector of layer/slice standard deviations.
 #' @examples
 #' small_matrix <- array(1:625, c(5, 5, 5))
-#' sliceFinite(small_matrix)
+#' sliceAllFinite(small_matrix)
 #' @export
 sliceAllFinite <- function(x,
                            mis_val = -2147483648) {

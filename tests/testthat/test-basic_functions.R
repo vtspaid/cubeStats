@@ -204,3 +204,23 @@ test_that("tubeSum works", {
   expect_equal(tubeSum(test_mat_na), rowSums(flat_mat_na))
   expect_equal(tubeSum(test_mat_na, na.rm = TRUE), rowSums(flat_mat_na, na.rm = TRUE))
 })
+
+# tubeEval ------------------------
+test_that("tubeEval works", {
+  expect_equal(tubeEval(test_mat, ">", 5), 
+               rowSums2(flat_mat_num > 5))
+  expect_equal(tubeEval(test_mat_int, ">", 5), 
+               rowSums2(flat_mat_int > 5))
+  expect_equal(tubeEval(test_mat, "<", 5), 
+               rowSums2(flat_mat_num < 5))
+  expect_equal(tubeEval(test_mat, "within", c(5, 10)), 
+               rowSums2(flat_mat_num > 5 & flat_mat_num < 10))
+  expect_equal(tubeEval(test_mat_int, "==", 5), 
+               rowSums2(flat_mat_int == 5))
+  expect_equal(tubeEval(test_mat, "==", 5), 
+               rowSums2(flat_mat_num == 5))
+  expect_equal(tubeEval(test_mat_na, "==", 5), 
+               rowSums2(flat_mat_na == 5))
+  expect_equal(tubeEval(test_mat_na_int, ">", 5), 
+               rowSums2(flat_mat_na_int > 5))
+})
