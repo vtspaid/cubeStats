@@ -130,28 +130,6 @@ sliceSd <- function(x,
 } 
 
 
-# sliceFinite ----------------------
-#' Check if there are any Finite values in each slice
-#' 
-#' @param x A 3d matrix/array.
-#' @param mis_val An integer to use as the missing value if the input matrix
-#' is an integer type. Argument is ignored if the input array is numeric.
-#' @returns A vector of layer/slice standard deviations.
-#' @examples
-#' small_matrix <- array(1:625, c(5, 5, 5))
-#' sliceAllFinite(small_matrix)
-#' @export
-sliceAllFinite <- function(x,
-                           mis_val = -2147483648) {
-  if(is.integer(x) | is.logical(x)) {
-    out <- cpp_slicefinite_int(x, mis_val = mis_val)
-  } else  if (is.numeric(x)) {
-    out <- cpp_slicefinite_num(x)
-  } 
-  return(out)
-} 
-
-
 # sliceEval --------------------------------------------------------
 #' Evaluate simple expressions
 #' 
