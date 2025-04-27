@@ -129,59 +129,6 @@ sliceSd <- function(x,
   return(out)
 } 
 
-# sliceEval --------------------------------------------------------
-#' Evaluate simple expressions
-#' 
-#' @param x A 3d matrix/array.
-#' @param expression Character: one of c(">", "<", "==", "within").
-#' @param value Numeric Vector of length 1 in most cases or length 2 when 
-#' `expression = "within"`
-#' @param na.rm True or false, should NAs be removed before calculating the mean.
-#' @param mis_val An integer to use as the missing value if the input matrix
-#' is an integer type. Argument is ignored if the input array is numeric.
-#' @returns A vector of layer/slice sums based on evaluation.
-#' 
-#' @details
-#' Within uses x > value[1] && x < value[2]
-#' 
-#' @examples
-#' small_matrix <- array(1:625, c(5, 5, 5))
-#' sliceEval(small_matrix)
-#' @export
-sliceEval <- function(x,
-                      expression = c(">", "<", "==", "within"),
-                      value,
-                      na.rm = FALSE, 
-                      mis_val = -2147483648) {
-  if (is.integer(x)) {
-    if (expression == ">") {
-      out <- cpp_slicegreater_int(x, na_rm = na.rm, value = value, mis_val = mis_val)
-    } else if (expression == "<") {
-      out <- cpp_sliceless_int(x, na_rm = na.rm, value = value, mis_val = mis_val)
-    } else if (expression == "==") {
-      out <- cpp_sliceequal_int(x, na_rm = na.rm, value = value, mis_val = mis_val)
-    } else if (expression == "within") {
-      out <- cpp_slicerange_int(x, na_rm = na.rm, value[1], value[2], mis_val = mis_val)
-    } else {
-      stop("expression = ", expression, "; when it should be one of '>', '<', '==', or 'within'")
-    }
-  } else {
-    if (expression == ">") {
-      out <- cpp_slicegreater_num(x, na_rm = na.rm, value = value)
-    } else if (expression == "<") {
-      out <- cpp_sliceless_num(x, na_rm = na.rm, value = value)
-    } else if (expression == "==") {
-      out <- cpp_sliceequal_num(x, na_rm = na.rm, value = value)
-    } else if (expression == "within") {
-      out <- cpp_slicerange_num(x, na_rm = na.rm, value[1], value[2])
-    } else{
-      stop("expression = ", expression, "; when it should be one of '>', '<', '==', or 'within'")
-    }
-  }
-  return(out)
-} 
-
-
 
 # sliceFinite ----------------------
 #' Check if there are any Finite values in each slice
