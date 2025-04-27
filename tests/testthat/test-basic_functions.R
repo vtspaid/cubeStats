@@ -224,3 +224,19 @@ test_that("tubeEval works", {
   expect_equal(tubeEval(test_mat_na_int, ">", 5), 
                rowSums2(flat_mat_na_int > 5))
 })
+
+# tubeAllNA ---------------
+test_that("tubeAllNA works", {
+  expect_equal(tubeAllNA(test_mat_na), 
+               rowAlls(flat_mat_na, value = NA))
+  expect_equal(tubeAllNA(test_mat_na_int), 
+               rowAlls(flat_mat_na_int, value = NA))
+})
+
+# tubeAllFinite ---------------
+test_that("tubeAllFinite works", {
+  expect_equal(tubeAllFinite(test_mat_na), 
+               !rowAnyNAs(flat_mat_na))
+  expect_equal(tubeAllFinite(test_mat_na_int), 
+               !rowAnyNAs(flat_mat_na_int))
+})

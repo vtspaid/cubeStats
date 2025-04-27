@@ -11,14 +11,6 @@ sliceEval(
   na.rm = FALSE,
   mis_val = -2147483648
 )
-
-sliceEval(
-  x,
-  expression = c(">", "<", "==", "within"),
-  value,
-  na.rm = FALSE,
-  mis_val = -2147483648
-)
 }
 \arguments{
 \item{x}{A 3d matrix/array.}
@@ -35,22 +27,14 @@ is an integer type. Argument is ignored if the input array is numeric.}
 }
 \value{
 A vector of layer/slice sums based on evaluation.
-
-A vector of layer/slice sums based on evaluation.
 }
 \description{
-Evaluate simple expressions
-
 Evaluate simple expressions
 }
 \details{
 Within uses x > value[1] && x < value[2]
-
-Within uses x > value[1] && x < value[2]
 }
 \examples{
-small_matrix <- array(1:625, c(5, 5, 5))
-sliceEval(small_matrix)
 small_matrix <- array(1:625, c(5, 5, 5))
 sliceEval(small_matrix)
 }

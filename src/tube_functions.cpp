@@ -534,3 +534,133 @@ Rcpp::NumericVector cpp_tuberange_num(const arma::Cube<double>& x,
   }
   return ans;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Functions for finding if all values are na or not
+// [[Rcpp::export]]
+Rcpp::LogicalVector cpp_tubena_num(const arma::Cube<double>& x) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int ns = x.n_slices;
+  Rcpp::LogicalVector ans(nr * nc);
+  int index = 0;
+  
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      bool all_na = true;
+      for (int k = 0; k < ns; k++) {
+        double val = x(i, j, k);
+        if (arma::is_finite(val)) {
+          all_na = false;
+          break; // No need to keep checking
+        }
+      }
+      ans[index++] = all_na;
+    }
+  }
+  
+  return ans;
+}
+
+
+// [[Rcpp::export]]
+Rcpp::LogicalVector cpp_tubena_int(const arma::Cube<int>& x, double mis_val) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int ns = x.n_slices;
+  Rcpp::LogicalVector ans(nr * nc);
+  int index = 0;
+  
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      bool all_na = true;
+      for (int k = 0; k < ns; k++) {
+        double val = x(i, j, k);
+        if (val != mis_val) {
+          all_na = false;
+          break; // No need to keep checking
+        }
+      }
+      ans[index++] = all_na;
+    }
+  }
+  
+  return ans;
+}
+////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Functions for finding if all values are finite or not
+// [[Rcpp::export]]
+Rcpp::LogicalVector cpp_tubefinite_num(const arma::Cube<double>& x) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int ns = x.n_slices;
+  Rcpp::LogicalVector ans(nr * nc);
+  int index = 0;
+  
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      bool all_finite = true;
+      for (int k = 0; k < ns; k++) {
+        double val = x(i, j, k);
+        if (!arma::is_finite(val)) {
+          all_finite = false;
+          break; // No need to keep checking
+        }
+      }
+      ans[index++] = all_finite;
+    }
+  }
+  
+  return ans;
+}
+
+
+// [[Rcpp::export]]
+Rcpp::LogicalVector cpp_tubefinite_int(const arma::Cube<int>& x, double mis_val) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int ns = x.n_slices;
+  Rcpp::LogicalVector ans(nr * nc);
+  int index = 0;
+  
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      bool all_finite = true;
+      for (int k = 0; k < ns; k++) {
+        double val = x(i, j, k);
+        if (val == mis_val) {
+          all_finite = false;
+          break; // No need to keep checking
+        }
+      }
+      ans[index++] = all_finite;
+    }
+  }
+  
+  return ans;
+}
+
+// Functions for finding if all values are finite or not
+// [[Rcpp::export]]
+Rcpp::LogicalVector cpp_tubefinite_numtest(const arma::Cube<double>& x) {
+  int nr = x.n_rows;
+  int nc = x.n_cols;
+  int ns = x.n_slices;
+  Rcpp::LogicalVector ans(nr * nc);
+  int index = 0;
+  
+  for (int j = 0; j < nc; j++) {
+    for (int i = 0; i < nr; i++) {
+      ans[index++] = is_finite(x.tube(i, j));
+    }
+  }
+  
+  return ans;
+}
+////////////////////////////////////////////////////////////////////////////////

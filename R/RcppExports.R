@@ -185,3 +185,23 @@ cpp_tuberange_num <- function(x, na_rm, value1, value2) {
     .Call(`_cubeStats_cpp_tuberange_num`, x, na_rm, value1, value2)
 }
 
+cpp_tubena_num <- function(x) {
+    .Call(`_cubeStats_cpp_tubena_num`, x)
+}
+
+cpp_tubena_int <- function(x, mis_val) {
+    .Call(`_cubeStats_cpp_tubena_int`, x, mis_val)
+}
+
+cpp_tubefinite_num <- function(x) {
+    .Call(`_cubeStats_cpp_tubefinite_num`, x)
+}
+
+cpp_tubefinite_int <- function(x, mis_val) {
+    .Call(`_cubeStats_cpp_tubefinite_int`, x, mis_val)
+}
+
+cpp_tubefinite_numtest <- function(x) {
+    .Call(`_cubeStats_cpp_tubefinite_numtest`, x)
+}
+

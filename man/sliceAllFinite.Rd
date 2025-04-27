@@ -5,8 +5,6 @@
 \title{Check if there are any Finite values in each slice}
 \usage{
 sliceAllFinite(x, mis_val = -2147483648)
-
-sliceAllFinite(x, mis_val = -2147483648)
 }
 \arguments{
 \item{x}{A 3d matrix/array.}
@@ -15,18 +13,12 @@ sliceAllFinite(x, mis_val = -2147483648)
 is an integer type. Argument is ignored if the input array is numeric.}
 }
 \value{
-A vector of layer/slice standard deviations.
-
 A vector of 1 and 0s. 1s indicates all values are Finite
 }
 \description{
 Check if there are any Finite values in each slice
-
-Check if there are any Finite values in each slice
 }
 \examples{
-small_matrix <- array(1:625, c(5, 5, 5))
-sliceFinite(small_matrix)
 small_matrix <- array(1:625, c(5, 5, 5))
 sliceAllFinite(small_matrix)
 }
