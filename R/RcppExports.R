@@ -25,10 +25,14 @@ cpp_slicemin_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_slicemin_num`, x, na_rm)
 }
 
+#' @export
+#' @keywords internal
 cpp_slicemedian_int <- function(x, na_rm, mis_val) {
     .Call(`_cubeStats_cpp_slicemedian_int`, x, na_rm, mis_val)
 }
 
+#' @export
+#' @keywords internal
 cpp_slicemedian_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_slicemedian_num`, x, na_rm)
 }
@@ -99,14 +103,6 @@ cpp_slicena_num <- function(x) {
 
 cpp_slicena_int <- function(x, mis_val) {
     .Call(`_cubeStats_cpp_slicena_int`, x, mis_val)
-}
-
-test_int <- function(x, mis_val) {
-    .Call(`_cubeStats_test_int`, x, mis_val)
-}
-
-test_int2 <- function(x, mis_val) {
-    .Call(`_cubeStats_test_int2`, x, mis_val)
 }
 
 #' @export

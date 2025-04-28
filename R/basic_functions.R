@@ -76,9 +76,9 @@ sliceMin <- function(x, na.rm = FALSE, mis_val = -2147483648) {
 #' @export
 sliceMedian <- function(x, na.rm = FALSE, mis_val = -2147483648) {
   if(is.integer(x)) {
-    cpp_slicemedian_int(x, na_rm = na.rm, mis_val = mis_val)
+    cubeStats:::cpp_slicemedian_int(x, na_rm = na.rm, mis_val = mis_val)
   } else {
-    cpp_slicemedian_num(x, na_rm = na.rm)
+    cubeStats:::cpp_slicemedian_num(x, na_rm = na.rm)
   }
 }
 

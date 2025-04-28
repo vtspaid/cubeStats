@@ -144,6 +144,8 @@ Rcpp::NumericVector cpp_slicemin_num(const arma::Cube<double>& x, bool na_rm) {
 
 ////////////////////////////////////////////////////////////////////////////////
 // Functions for finding the Median
+//' @export
+//' @keywords internal
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicemedian_int(const arma::Cube<int>& x,
                                         bool na_rm,
@@ -151,6 +153,8 @@ Rcpp::NumericVector cpp_slicemedian_int(const arma::Cube<int>& x,
   return cpp_slicefun(x, na_rm, [](const auto& v) { return arma::median(v); }, true, mis_val);
 }
 
+//' @export
+//' @keywords internal
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_slicemedian_num(const arma::Cube<double>& x,
                                         bool na_rm) {
@@ -479,34 +483,3 @@ Rcpp::NumericVector cpp_slicena_int(const arma::Cube<int>& x, double mis_val) {
 }
 ////////////////////////////////////////////////////////////////////////////////
 
-// [[Rcpp::export]]
-Rcpp::NumericVector test_int(const arma::Cube<int>& x, double mis_val) {
-  int ns = x.n_slices;
-  int tot = x.slice(0).n_elem;
-  Rcpp::NumericVector ans(ns);
-  for (int i = 0; i < ns; i++) {
-    arma::ivec vals = x.slice(i);
-    if (arma::any(vals == mis_val)) {
-      ans[i] = NA_REAL;
-    } else {
-      ans[i] = 1;
-    }
-  }
-  return ans;
-}
-
-// [[Rcpp::export]]
-Rcpp::NumericVector test_int2(const arma::Cube<int>& x, double mis_val) {
-  int ns = x.n_slices;
-  int tot = x.slice(0).n_elem;
-  Rcpp::NumericVector ans(ns);
-  for (int i = 0; i < ns; i++) {
-    arma::ivec vals = arma::vectorise(x.slice(i));
-    if (arma::any(vals == mis_val)) {
-      ans[i] = NA_REAL;
-    } else {
-      ans[i] = 1;
-    }
-  }
-    return ans;
-}
