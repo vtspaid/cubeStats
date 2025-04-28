@@ -219,9 +219,9 @@ sliceAllFinite <- function(x,
 sliceAllNA <- function(x,
                        mis_val = -2147483648) {
   if(is.integer(x) | is.logical(x)) {
-    out <- cpp_slicena_int(x, mis_val = mis_val)
+    out <- cubeStats:::cpp_slicena_int(x, mis_val = mis_val)
   } else  if (is.numeric(x)) {
-    out <- cpp_slicena_num(x)
+    out <- cubeStats:::cpp_slicena_num(x)
   } 
   return(out)
 } 

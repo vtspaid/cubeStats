@@ -306,7 +306,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // cpp_slicena_num
-Rcpp::NumericVector cpp_slicena_num(const arma::Cube<double>& x);
+Rcpp::LogicalVector cpp_slicena_num(const arma::Cube<double>& x);
 RcppExport SEXP _cubeStats_cpp_slicena_num(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -317,7 +317,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // cpp_slicena_int
-Rcpp::NumericVector cpp_slicena_int(const arma::Cube<int>& x, double mis_val);
+Rcpp::LogicalVector cpp_slicena_int(const arma::Cube<int>& x, double mis_val);
 RcppExport SEXP _cubeStats_cpp_slicena_int(SEXP xSEXP, SEXP mis_valSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
