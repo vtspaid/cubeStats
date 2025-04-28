@@ -142,14 +142,14 @@ test_that("sliceEval works", {
 test_that("sliceAllFinite works", {
   expect_equal(sliceAllFinite(test_mat), 
                ifelse(sapply(1:5, function(x) sum(is.na(test_mat[, , x]))) == 0,
-                      1, 0))
+                      TRUE, FALSE))
 })
 
 # sliceAllNA ----------------
 test_that("sliceAllNA works", {
   expect_equal(sliceAllNA(test_mat_na_1), 
                ifelse(sapply(1:5, function(x) sum(is.na(test_mat_na_1[, , x]))) == 25,
-                      1, 0))
+                      TRUE, FALSE))
 })
 
 
