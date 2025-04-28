@@ -109,6 +109,18 @@ test_int2 <- function(x, mis_val) {
     .Call(`_cubeStats_test_int2`, x, mis_val)
 }
 
+#' @export
+NULL
+
+#' @export
+NULL
+
+#' @export
+NULL
+
+#' @export
+NULL
+
 tube_test <- function(x, na_rm = FALSE, mis_val = -2147483648) {
     .Call(`_cubeStats_tube_test`, x, na_rm, mis_val)
 }
@@ -119,6 +131,14 @@ cpp_tubemean_int <- function(x, na_rm, mis_val) {
 
 cpp_tubemean_num <- function(x, na_rm) {
     .Call(`_cubeStats_cpp_tubemean_num`, x, na_rm)
+}
+
+cpp_tubemedian_int <- function(x, na_rm, mis_val) {
+    .Call(`_cubeStats_cpp_tubemedian_int`, x, na_rm, mis_val)
+}
+
+cpp_tubemedian_num <- function(x, na_rm) {
+    .Call(`_cubeStats_cpp_tubemedian_num`, x, na_rm)
 }
 
 cpp_tubemax_int <- function(x, na_rm, mis_val) {
@@ -185,23 +205,27 @@ cpp_tuberange_num <- function(x, na_rm, value1, value2) {
     .Call(`_cubeStats_cpp_tuberange_num`, x, na_rm, value1, value2)
 }
 
+#' @export
+#' @keywords internal
 cpp_tubena_num <- function(x) {
     .Call(`_cubeStats_cpp_tubena_num`, x)
 }
 
+#' @export
+#' @keywords internal
 cpp_tubena_int <- function(x, mis_val) {
     .Call(`_cubeStats_cpp_tubena_int`, x, mis_val)
 }
 
+#' @export
+#' @keywords internal
 cpp_tubefinite_num <- function(x) {
     .Call(`_cubeStats_cpp_tubefinite_num`, x)
 }
 
+#' @export
+#' @keywords internal
 cpp_tubefinite_int <- function(x, mis_val) {
     .Call(`_cubeStats_cpp_tubefinite_int`, x, mis_val)
-}
-
-cpp_tubefinite_numtest <- function(x) {
-    .Call(`_cubeStats_cpp_tubefinite_numtest`, x)
 }
 

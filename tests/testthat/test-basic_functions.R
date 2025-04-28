@@ -163,6 +163,16 @@ test_that("tubeMean works", {
   expect_equal(tubeMean(test_mat_na, na.rm = TRUE), rowMeans2(flat_mat_na, na.rm = TRUE))
 })
 
+# TubeMedian ------------
+test_that("tubeMedian works", {
+  expect_equal(tubeMedian(test_mat_int), rowMedians(flat_mat_int))
+  expect_equal(tubeMedian(test_mat), rowMedians(flat_mat_num))
+  expect_equal(tubeMedian(test_mat_na_int), rowMedians(flat_mat_na_int))
+  expect_equal(tubeMedian(test_mat_na_int, na.rm = TRUE), rowMedians(flat_mat_na_int, na.rm = TRUE))
+  expect_equal(tubeMedian(test_mat_na), rowMedians(flat_mat_na))
+  expect_equal(tubeMedian(test_mat_na, na.rm = TRUE), rowMedians(flat_mat_na, na.rm = TRUE))
+})
+
 # TubeMax ------------
 test_that("tubeMax works", {
   expect_equal(tubeMax(test_mat_int), rowMaxs(flat_mat_int))

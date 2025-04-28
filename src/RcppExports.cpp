@@ -390,6 +390,31 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_tubemedian_int
+Rcpp::NumericVector cpp_tubemedian_int(const arma::Cube<int>& x, bool na_rm, double mis_val);
+RcppExport SEXP _cubeStats_cpp_tubemedian_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<int>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    Rcpp::traits::input_parameter< double >::type mis_val(mis_valSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubemedian_int(x, na_rm, mis_val));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cpp_tubemedian_num
+Rcpp::NumericVector cpp_tubemedian_num(const arma::Cube<double>& x, bool na_rm);
+RcppExport SEXP _cubeStats_cpp_tubemedian_num(SEXP xSEXP, SEXP na_rmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_tubemedian_num(x, na_rm));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cpp_tubemax_int
 Rcpp::NumericVector cpp_tubemax_int(const arma::Cube<int>& x, bool na_rm, double mis_val);
 RcppExport SEXP _cubeStats_cpp_tubemax_int(SEXP xSEXP, SEXP na_rmSEXP, SEXP mis_valSEXP) {
@@ -646,17 +671,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// cpp_tubefinite_numtest
-Rcpp::LogicalVector cpp_tubefinite_numtest(const arma::Cube<double>& x);
-RcppExport SEXP _cubeStats_cpp_tubefinite_numtest(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::Cube<double>& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_tubefinite_numtest(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_slicemean_int", (DL_FUNC) &_cubeStats_cpp_slicemean_int, 3},
@@ -689,6 +703,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_tube_test", (DL_FUNC) &_cubeStats_tube_test, 3},
     {"_cubeStats_cpp_tubemean_int", (DL_FUNC) &_cubeStats_cpp_tubemean_int, 3},
     {"_cubeStats_cpp_tubemean_num", (DL_FUNC) &_cubeStats_cpp_tubemean_num, 2},
+    {"_cubeStats_cpp_tubemedian_int", (DL_FUNC) &_cubeStats_cpp_tubemedian_int, 3},
+    {"_cubeStats_cpp_tubemedian_num", (DL_FUNC) &_cubeStats_cpp_tubemedian_num, 2},
     {"_cubeStats_cpp_tubemax_int", (DL_FUNC) &_cubeStats_cpp_tubemax_int, 3},
     {"_cubeStats_cpp_tubemax_num", (DL_FUNC) &_cubeStats_cpp_tubemax_num, 2},
     {"_cubeStats_cpp_tubemin_int", (DL_FUNC) &_cubeStats_cpp_tubemin_int, 3},
@@ -709,7 +725,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cubeStats_cpp_tubena_int", (DL_FUNC) &_cubeStats_cpp_tubena_int, 2},
     {"_cubeStats_cpp_tubefinite_num", (DL_FUNC) &_cubeStats_cpp_tubefinite_num, 1},
     {"_cubeStats_cpp_tubefinite_int", (DL_FUNC) &_cubeStats_cpp_tubefinite_int, 2},
-    {"_cubeStats_cpp_tubefinite_numtest", (DL_FUNC) &_cubeStats_cpp_tubefinite_numtest, 1},
     {NULL, NULL, 0}
 };
 

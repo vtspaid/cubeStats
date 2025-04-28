@@ -136,6 +136,8 @@ return ans;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Mean
+//' @export
+ //' @keywords internal
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_tubemean_int(const arma::Cube<int>& x, 
                                      bool na_rm, 
@@ -144,6 +146,8 @@ Rcpp::NumericVector cpp_tubemean_int(const arma::Cube<int>& x,
                      true, mis_val);
 }
 
+//' @export
+ //' @keywords internal
 // [[Rcpp::export]]
 Rcpp::NumericVector cpp_tubemean_num(const arma::Cube<double>& x, 
                                      bool na_rm) {
@@ -152,6 +156,28 @@ Rcpp::NumericVector cpp_tubemean_num(const arma::Cube<double>& x,
 }
 ////////////////////////////////////////////////////////////////////////////////
 
+
+////////////////////////////////////////////////////////////////////////////////
+// Median
+//' @export
+ //' @keywords internal
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubemedian_int(const arma::Cube<int>& x, 
+                                     bool na_rm, 
+                                     double mis_val) {
+  return cpp_tubefun(x, na_rm = na_rm, [](const auto& v) { return arma::median(v); }, 
+                     true, mis_val);
+}
+
+//' @export
+ //' @keywords internal
+// [[Rcpp::export]]
+Rcpp::NumericVector cpp_tubemedian_num(const arma::Cube<double>& x, 
+                                     bool na_rm) {
+  return cpp_tubefun(x, na_rm = na_rm, [](const auto& v) { return arma::median(v); }, 
+                     true);
+}
+////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 // Max
@@ -225,63 +251,6 @@ Rcpp::NumericVector cpp_tubesum_num(const arma::Cube<double>& x,
                      true, 0, true);
 }
 ////////////////////////////////////////////////////////////////////////////////
-
-// // [[Rcpp::export]]
-// Rcpp::NumericVector cpp_tubemean_int2(const arma::Cube<int>& x, double mis_val) {
-//   int nr = x.n_rows; 
-//   int nc = x.n_cols;
-//   Rcpp::NumericVector ans(nr * nc);
-//   int index = 0;
-//   for (int j = 0; j < nc; j++) {
-//     for (int i = 0; i < nr; i++) {
-//       arma::ivec tube = x.tube(i, j);
-//       arma::uvec locs = arma::find(tube != mis_val);
-//       if (locs.is_empty()) {
-//         ans[index] = NA_REAL;
-//         index++;
-//         continue;
-//       } 
-//       ans[index] = arma::mean(arma::conv_to<arma::colvec>::from(tube.elem(locs)));
-//       index++;
-//     }
-//   }
-//   return ans;
-// }
-// 
-// 
-// // [[Rcpp::export]]
-// Rcpp::NumericVector cpp_tubemean_num2(const arma::Cube<double>& x, bool na_rm) {
-//   int nr = x.n_rows; 
-//   int nc = x.n_cols;
-//   Rcpp::NumericVector ans(nr * nc);
-//   int index = 0;
-//   for (int j = 0; j < nc; j++) {
-//     for (int i = 0; i < nr; i++) {
-//       if (na_rm == true) {
-//         arma::vec tube = x.tube(i, j);
-//         arma::uvec locs = arma::find_finite(tube);
-//         if (locs.is_empty()) {
-//           ans[index] = NA_REAL;
-//           index++;
-//           continue;
-//         } 
-//         ans[index] = arma::mean(tube.elem(locs));
-//         index++;
-//       } else {
-//         if (x.tube(i, j).has_nonfinite()) {
-//           ans[index] = NA_REAL;
-//           index++;
-//           continue;
-//         }
-//         arma::vec tube = x.tube(i, j);
-//         ans[index] = arma::mean(tube);
-//         index++;
-//       }
-//     }
-//   }
-//   return ans;
-// }
-
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -540,6 +509,8 @@ Rcpp::NumericVector cpp_tuberange_num(const arma::Cube<double>& x,
 
 ///////////////////////////////////////////////////////////////////////////////
 // Functions for finding if all values are na or not
+//' @export
+//' @keywords internal
 // [[Rcpp::export]]
 Rcpp::LogicalVector cpp_tubena_num(const arma::Cube<double>& x) {
   int nr = x.n_rows;
@@ -565,7 +536,8 @@ Rcpp::LogicalVector cpp_tubena_num(const arma::Cube<double>& x) {
   return ans;
 }
 
-
+//' @export
+//' @keywords internal
 // [[Rcpp::export]]
 Rcpp::LogicalVector cpp_tubena_int(const arma::Cube<int>& x, double mis_val) {
   int nr = x.n_rows;
@@ -595,32 +567,28 @@ Rcpp::LogicalVector cpp_tubena_int(const arma::Cube<int>& x, double mis_val) {
 
 ///////////////////////////////////////////////////////////////////////////////
 // Functions for finding if all values are finite or not
+// We use a different method for numeric vs integer because is_finite is faster
+// but doesn't work for integer matrices because integer matrices have no
+// NA
+//' @export
+//' @keywords internal
 // [[Rcpp::export]]
 Rcpp::LogicalVector cpp_tubefinite_num(const arma::Cube<double>& x) {
   int nr = x.n_rows;
   int nc = x.n_cols;
-  int ns = x.n_slices;
   Rcpp::LogicalVector ans(nr * nc);
   int index = 0;
-  
   for (int j = 0; j < nc; j++) {
     for (int i = 0; i < nr; i++) {
-      bool all_finite = true;
-      for (int k = 0; k < ns; k++) {
-        double val = x(i, j, k);
-        if (!arma::is_finite(val)) {
-          all_finite = false;
-          break; // No need to keep checking
-        }
-      }
-      ans[index++] = all_finite;
+      ans[index++] = is_finite(x.tube(i, j));
     }
   }
   
   return ans;
 }
 
-
+//' @export
+//' @keywords internal
 // [[Rcpp::export]]
 Rcpp::LogicalVector cpp_tubefinite_int(const arma::Cube<int>& x, double mis_val) {
   int nr = x.n_rows;
@@ -646,21 +614,5 @@ Rcpp::LogicalVector cpp_tubefinite_int(const arma::Cube<int>& x, double mis_val)
   return ans;
 }
 
-// Functions for finding if all values are finite or not
-// [[Rcpp::export]]
-Rcpp::LogicalVector cpp_tubefinite_numtest(const arma::Cube<double>& x) {
-  int nr = x.n_rows;
-  int nc = x.n_cols;
-  int ns = x.n_slices;
-  Rcpp::LogicalVector ans(nr * nc);
-  int index = 0;
-  
-  for (int j = 0; j < nc; j++) {
-    for (int i = 0; i < nr; i++) {
-      ans[index++] = is_finite(x.tube(i, j));
-    }
-  }
-  
-  return ans;
-}
+
 ////////////////////////////////////////////////////////////////////////////////
